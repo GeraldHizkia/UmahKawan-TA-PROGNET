@@ -107,24 +107,12 @@ function init() {
   // Create the Google Map using our element and options defined above
   var map = new google.maps.Map(mapElement, mapOptions);
 
-<<<<<<< HEAD
-    for (var x = 0; x < addresses.length; x++) {
-        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
-            var p = data.results[0].geometry.location
-            var latlng = new google.maps.LatLng(p.lat, p.lng);
-            new google.maps.Marker({
-                position: latlng,
-                map: map,
-                icon: 'images/loc.png'
-            });
-=======
   // If the map container had an existing child (for example an iframe),
   // clear it so the Maps API can render the map correctly inside the div.
   if (mapElement) {
     // remove any existing content (e.g. an embedded iframe)
     mapElement.innerHTML = "";
   }
->>>>>>> db054767592bad7c37d3f842971822b678c6d9cf
 
   var addresses = ["New York"];
 
