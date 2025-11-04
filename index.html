@@ -177,7 +177,7 @@
         </div>
         <div class="book p-4">
           <h3>Order Now</h3>
-          <form action="#" class="appointment-form">
+          <form id="orderForm" class="appointment-form" onsubmit="return handleWhatsAppOrder(event)">
             <div class="d-md-flex">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="First Name" />
@@ -193,10 +193,10 @@
             </div>
             <div class="d-md-flex">
               <div class="form-group">
-                <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+                <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Order"></textarea>
               </div>
               <div class="form-group ml-md-4">
-                <input type="submit" value="Order" class="btn btn-white py-3 px-4" />
+                <button type="submit" class="btn btn-white py-3 px-4">Order via WhatsApp</button>
               </div>
             </div>
           </form>
@@ -204,6 +204,36 @@
       </div>
     </div>
   </section>
+
+  <script>
+    // When the user submits the order form, open WhatsApp with a prefilled message.
+    function handleWhatsAppOrder(e){
+      e && e.preventDefault && e.preventDefault();
+      // Collect values from the form fields (use placeholders as selectors to avoid changing markup much)
+      var form = document.getElementById('orderForm');
+      if(!form) return true;
+      var first = (form.querySelector('input[placeholder="First Name"]')||{value:''}).value.trim();
+      var last = (form.querySelector('input[placeholder="Last Name"]')||{value:''}).value.trim();
+      var alamat = (form.querySelector('input[placeholder="Alamat"]')||{value:''}).value.trim();
+      var message = (form.querySelector('textarea[placeholder="Order"]')||{value:''}).value.trim();
+
+      // Build the WhatsApp message
+      var namePart = first || last ? (first + (last ? ' ' + last : '')) : '';
+      var text = '';
+      if(namePart) text += 'Nama: ' + namePart + '\n';
+      if(alamat) text += 'Alamat: ' + alamat + '\n';
+      if(message) text += 'Pesanan: ' + message + '\n';
+      if(!text) text = 'Halo, Umah Kawan Rujak! \n Saya ingin memesan:';
+
+      // Target phone (from site contact) in international format without + or spaces
+      var phone = '62895331931513';
+      var waUrl = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+
+      // Open in a new tab/window
+      window.open(waUrl, '_blank');
+      return false;
+    }
+  </script>
 
   <section class="ftco-about d-md-flex">
     <div class="one-half img" style="background-image: url(./img/warung\ rujak.png)"></div>
