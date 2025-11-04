@@ -11188,6 +11188,10 @@ textarea.form-control {
   height: 400px;
   width: 100%;
 }
+/* wrapper to add gap (vertical spacing) around embedded maps */
+.map-gap {
+  margin: 30px;
+}
 @media (max-width: 991.98px) {
   #map {
     height: 300px;
