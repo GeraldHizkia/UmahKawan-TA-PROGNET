@@ -10373,7 +10373,7 @@ h5,
 }
 .pricing-entry .text h3 span {
   background: #151111;
-  background: url(../images/bg_4.jpg) no-repeat fixed;
+  background: url(../img/bg_4.jpg) no-repeat fixed;
   padding-right: 20px;
 }
 .pricing-entry .text .price {
@@ -10381,7 +10381,7 @@ h5,
   color: #c49b63;
   text-align: right;
   background: #151111;
-  background: url(../images/bg_4.jpg) no-repeat fixed;
+  background: url(../img/bg_4.jpg) no-repeat fixed;
   font-size: 16px;
 }
 
