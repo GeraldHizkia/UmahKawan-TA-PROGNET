@@ -27,6 +27,12 @@
   <link rel="stylesheet" href="css/flaticon.css">
   <link rel="stylesheet" href="css/icomoon.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Responsive map helpers (kept inline so pages render consistently) */
+    .map-gap { margin: 30px 0; }
+    .map-responsive{ position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
+    .map-responsive iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+  </style>
   </head>
      <body>
     <nav
@@ -169,14 +175,13 @@
     </section>
 
     <div class="map-gap">
-      <div id="map">
+      <div class="map-responsive">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2217.168506788972!2d115.20344982241302!3d-8.685001196221139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd241ae1c626eef%3A0x2d7612833e0600fa!2sUmah%20Kawan%20Pedungan!5e1!3m2!1sid!2sid!4v1762246776584!5m2!1sid!2sid"
-            style="border:0; width:100%; height:100%; display:block;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2217.168506788972!2d115.20344982241302!3d-8.685001196221139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd241ae1c626eef%3A0x2d7612833e0600fa!2sUmah%20Kawan%20Pedungan!5e1!3m2!1sid!2sid!4v1762246776584!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
     </div>
 
