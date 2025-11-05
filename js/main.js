@@ -3,6 +3,41 @@ AOS.init({
   easing: "slide",
 });
 
+// When the user submits the order form, open WhatsApp with a prefilled message.
+function handleWhatsAppOrder(e) {
+  e && e.preventDefault && e.preventDefault();
+  // Collect values from the form fields (use placeholders as selectors to avoid changing markup much)
+  var form = document.getElementById("orderForm");
+  if (!form) return true;
+  var first = (
+    form.querySelector('input[placeholder="First Name"]') || { value: "" }
+  ).value.trim();
+  var last = (
+    form.querySelector('input[placeholder="Last Name"]') || { value: "" }
+  ).value.trim();
+  var alamat = (
+    form.querySelector('input[placeholder="Alamat"]') || { value: "" }
+  ).value.trim();
+  var message = (
+    form.querySelector('textarea[placeholder="Order"]') || { value: "" }
+  ).value.trim();
+
+  // Build the WhatsApp message
+  var namePart = first || last ? first + (last ? " " + last : "") : "";
+  var text = "Halo, Rujak Umah Kawan👋! \n Saya ingin memesan:" + "\n";
+  if (namePart) text += "Nama: " + namePart + "\n";
+  if (alamat) text += "Alamat: " + alamat + "\n";
+  if (message) text += "Pesanan: " + message + "\n";
+
+  // Target phone (from site contact) in international format without + or spaces
+  var phone = "62895331931513";
+  var waUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+
+  // Open in a new tab/window
+  window.open(waUrl, "_blank");
+  return false;
+}
+
 (function ($) {
   "use strict";
 
@@ -264,77 +299,4 @@ AOS.init({
     });
   };
   OnePageNav();
-
-  // magnific popup
-  $(".image-popup").magnificPopup({
-    type: "image",
-    closeOnContentClick: true,
-    closeBtnInside: true,
-    fixedContentPos: true,
-    mainClass: "mfp-no-margins mfp-with-zoom", // class to remove default margin from left and right side
-    gallery: {
-      enabled: true,
-      navigateByImgClick: true,
-      preload: [0, 1], // Will preload 0 - before current, and 1 after the current image
-    },
-    image: {
-      verticalFit: true,
-    },
-    zoom: {
-      enabled: true,
-      duration: 300, // don't foget to change the duration also in CSS
-    },
-  });
-
-  $(".popup-youtube, .popup-vimeo, .popup-gmaps").magnificPopup({
-    disableOn: 700,
-    type: "iframe",
-    mainClass: "mfp-fade",
-    removalDelay: 160,
-    preloader: false,
-
-    fixedContentPos: false,
-  });
-
-  $(".appointment_date").datepicker({
-    format: "m/d/yyyy",
-    autoclose: true,
-  });
-
-  $(".appointment_time").timepicker();
 })(jQuery);
-
-// When the user submits the order form, open WhatsApp with a prefilled message.
-function handleWhatsAppOrder(e) {
-  e && e.preventDefault && e.preventDefault();
-  // Collect values from the form fields (use placeholders as selectors to avoid changing markup much)
-  var form = document.getElementById("orderForm");
-  if (!form) return true;
-  var first = (
-    form.querySelector('input[placeholder="First Name"]') || { value: "" }
-  ).value.trim();
-  var last = (
-    form.querySelector('input[placeholder="Last Name"]') || { value: "" }
-  ).value.trim();
-  var alamat = (
-    form.querySelector('input[placeholder="Alamat"]') || { value: "" }
-  ).value.trim();
-  var message = (
-    form.querySelector('textarea[placeholder="Order"]') || { value: "" }
-  ).value.trim();
-
-  // Build the WhatsApp message
-  var namePart = first || last ? first + (last ? " " + last : "") : "";
-  var text = "Halo, Rujak Umah Kawan👋! \n Saya ingin memesan:" + "\n";
-  if (namePart) text += "Nama: " + namePart + "\n";
-  if (alamat) text += "Alamat: " + alamat + "\n";
-  if (message) text += "Pesanan: " + message + "\n";
-
-  // Target phone (from site contact) in international format without + or spaces
-  var phone = "62895331931513";
-  var waUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
-
-  // Open in a new tab/window
-  window.open(waUrl, "_blank");
-  return false;
-}
