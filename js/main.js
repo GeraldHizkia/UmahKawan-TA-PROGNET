@@ -325,11 +325,10 @@ function handleWhatsAppOrder(e) {
 
   // Build the WhatsApp message
   var namePart = first || last ? first + (last ? " " + last : "") : "";
-  var text = "";
+  var text = "Halo, Rujak Umah Kawan👋! \n Saya ingin memesan:" + "\n";
   if (namePart) text += "Nama: " + namePart + "\n";
   if (alamat) text += "Alamat: " + alamat + "\n";
   if (message) text += "Pesanan: " + message + "\n";
-  if (!text) text = "Halo, Umah Kawan Rujak! \n Saya ingin memesan:";
 
   // Target phone (from site contact) in international format without + or spaces
   var phone = "62895331931513";
