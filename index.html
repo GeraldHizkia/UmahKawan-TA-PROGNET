@@ -17,13 +17,10 @@
 
   <link rel="stylesheet" href="./css/ionicons.min.css" />
 
-  <link rel="stylesheet" href="./css/bootstrap-datepicker.css" />
-  <link rel="stylesheet" href="./css/jquery.timepicker.css" />
-
   <link rel="stylesheet" href="./css/flaticon.css" />
   <link rel="stylesheet" href="./css/icomoon.css" />
   <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -55,8 +52,6 @@
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a class="dropdown-item" href="shop.html">Shop</a>
               <a class="dropdown-item" href="./produk.html">Single Product</a>
-              <a class="dropdown-item" href="./cart.html">cart</a>
-              <!-- <a class="dropdown-item" href="./cart.html">Plecing</a> -->
               <a class="dropdown-item" href="checkout.html">Checkout</a>
             </div>
           </li>
@@ -65,12 +60,8 @@
           </li>
           <li class="nav-item cart">
             <a href="cart.html" class="nav-link">
-              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="icon icon-shopping_cart"></span>
 
-              <!-- <ion-icon name="cart"></ion-icon> -->
-              <!-- <span
-                  class="bag d-flex justify-content-center align-items-center"
-                  ><small>1</small></span -->
             </a>
           </li>
         </ul>
@@ -205,35 +196,7 @@
     </div>
   </section>
 
-  <script>
-    // When the user submits the order form, open WhatsApp with a prefilled message.
-    function handleWhatsAppOrder(e){
-      e && e.preventDefault && e.preventDefault();
-      // Collect values from the form fields (use placeholders as selectors to avoid changing markup much)
-      var form = document.getElementById('orderForm');
-      if(!form) return true;
-      var first = (form.querySelector('input[placeholder="First Name"]')||{value:''}).value.trim();
-      var last = (form.querySelector('input[placeholder="Last Name"]')||{value:''}).value.trim();
-      var alamat = (form.querySelector('input[placeholder="Alamat"]')||{value:''}).value.trim();
-      var message = (form.querySelector('textarea[placeholder="Order"]')||{value:''}).value.trim();
-
-      // Build the WhatsApp message
-      var namePart = first || last ? (first + (last ? ' ' + last : '')) : '';
-      var text = '';
-      if(namePart) text += 'Nama: ' + namePart + '\n';
-      if(alamat) text += 'Alamat: ' + alamat + '\n';
-      if(message) text += 'Pesanan: ' + message + '\n';
-      if(!text) text = 'Halo, Umah Kawan Rujak! \n Saya ingin memesan:';
-
-      // Target phone (from site contact) in international format without + or spaces
-      var phone = '62895331931513';
-      var waUrl = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
-
-      // Open in a new tab/window
-      window.open(waUrl, '_blank');
-      return false;
-    }
-  </script>
+  
 
   <section class="ftco-about d-md-flex">
     <div class="one-half img" style="background-image: url(./img/warung\ rujak.png)"></div>
@@ -366,7 +329,8 @@
               <div class="block-18 text-center">
                 <div class="text">
                   <div class="icon d-flex justify-content-center align-items-center">
-                    <img src="./fonts/flaticon/icon-branch.png" width="50%" style="object-fit: contain;" alt="Branch Icon">
+                    <img src="./fonts/flaticon/icon-branch.png" width="50%" style="object-fit: contain;"
+                      alt="Branch Icon">
                   </div>
 
                   <strong class="number" data-number="5">0</strong>
@@ -377,8 +341,9 @@
             <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
               <div class="block-18 text-center">
                 <div class="text">
-                 <div class="icon d-flex justify-content-center align-items-center">
-                    <img src="./fonts/flaticon/icon-award.png" width="50%" style="object-fit: contain;" alt="Awards Icon">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                    <img src="./fonts/flaticon/icon-award.png" width="50%" style="object-fit: contain;"
+                      alt="Awards Icon">
                   </div>
                   <strong class="number" data-number="20">0</strong>
                   <span>Number of Awards</span>
@@ -389,7 +354,8 @@
               <div class="block-18 text-center">
                 <div class="text">
                   <div class="icon d-flex justify-content-center align-items-center">
-                    <img src="./fonts/flaticon/icon-cust.png" width="50%" style="object-fit: contain;" alt="Customer Icon">
+                    <img src="./fonts/flaticon/icon-cust.png" width="50%" style="object-fit: contain;"
+                      alt="Customer Icon">
                   </div>
                   <strong class="number" data-number="2521">0</strong>
                   <span>Happy Customer</span>
@@ -936,7 +902,6 @@
             </ul>
           </div>
         </div>
-        <!-- Recent Blog section removed -->
         <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
           <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">Services</h2>
@@ -972,13 +937,12 @@
       <div class="row">
         <div class="col-md-12 text-center">
           <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
             Copyright &copy;
             <script>
               document.write(new Date().getFullYear());
             </script>
             All rights reserved | UmahKawan
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           </p>
         </div>
       </div>
@@ -1005,11 +969,7 @@
   <script src="./js/jquery.magnific-popup.min.js"></script>
   <script src="./js/aos.js"></script>
   <script src="./js/jquery.animateNumber.min.js"></script>
-  <script src="./js/bootstrap-datepicker.js"></script>
-  <script src="./js/jquery.timepicker.min.js"></script>
   <script src="./js/scrollax.min.js"></script>
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
-  <!-- <script src="./js/google-map.js"></script> -->
   <script src="./js/main.js"></script>
 </body>
 
