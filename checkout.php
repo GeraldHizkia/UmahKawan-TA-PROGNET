@@ -1,3 +1,111 @@
+<?php
+// checkout.php - Halaman Checkout
+session_start();
+include 'config.php';
+include 'functions.php';
+
+// Redirect jika cart kosong
+if (empty($_SESSION['cart'])) {
+    header('Location: cart.php');
+    exit();
+}
+
+// Check if user logged in
+$is_logged_in = isset($_SESSION['user_id']);
+$user_id = $_SESSION['user_id'] ?? null;
+
+// Get user addresses if logged in
+$addresses = [];
+if ($is_logged_in) {
+    $query = "SELECT * FROM addresses WHERE user_id = ? ORDER BY is_default DESC, id DESC";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $addresses[] = $row;
+    }
+    mysqli_stmt_close($stmt);
+}
+
+// Calculate totals
+$subtotal = 0;
+foreach ($_SESSION['cart'] as $item) {
+    $subtotal += $item['price'] * $item['quantity'];
+}
+$delivery_fee = 5000;
+$total = $subtotal + $delivery_fee;
+
+// Handle form submission
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $payment_method = $_POST['payment_method'] ?? 'cash';
+    $order_notes = trim($_POST['order_notes'] ?? '');
+    
+    if ($is_logged_in) {
+        // For logged in users
+        $address_id = intval($_POST['address_id'] ?? 0);
+        
+        if ($address_id == 0) {
+            $errors[] = "Silakan pilih alamat pengiriman";
+        }
+        
+        if (empty($errors)) {
+            // Create order for logged in user
+            $order_number = 'RJK' . date('Ymd') . sprintf('%04d', rand(1, 9999));
+            
+            $query = "INSERT INTO orders (order_number, user_id, address_id, order_status, 
+                     payment_status, payment_method, subtotal, delivery_fee, total, notes)
+                     VALUES (?, ?, ?, 'pending', 'unpaid', ?, ?, ?, ?, ?)";
+            
+            $stmt = mysqli_prepare($conn, $query);
+            mysqli_stmt_bind_param($stmt, "siisddds", 
+                $order_number, $user_id, $address_id, $payment_method,
+                $subtotal, $delivery_fee, $total, $order_notes
+            );
+            
+            if (mysqli_stmt_execute($stmt)) {
+                $order_id = mysqli_insert_id($conn);
+                
+                // Insert order items
+                foreach ($_SESSION['cart'] as $item) {
+                    $item_notes = "Pedas: " . $item['spicy_level'];
+                    if (!empty($item['notes'])) {
+                        $item_notes .= " | " . $item['notes'];
+                    }
+                    
+                    $item_subtotal = $item['price'] * $item['quantity'];
+                    
+                    $query_item = "INSERT INTO order_items 
+                                  (order_id, product_id, product_name, quantity, price, subtotal, notes)
+                                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    $stmt_item = mysqli_prepare($conn, $query_item);
+                    mysqli_stmt_bind_param($stmt_item, "iisidds",
+                        $order_id, $item['product_id'], $item['name'],
+                        $item['quantity'], $item['price'], $item_subtotal, $item_notes
+                    );
+                    mysqli_stmt_execute($stmt_item);
+                    mysqli_stmt_close($stmt_item);
+                }
+                
+                // Clear cart
+                $_SESSION['cart'] = [];
+                
+                // Redirect to success page
+                header("Location: order-complete.php?order_number=$order_number");
+                exit();
+            }
+            
+            mysqli_stmt_close($stmt);
+        }
+    } else {
+        // For guest users - redirect to login/register
+        $_SESSION['checkout_redirect'] = true;
+        header('Location: login.php');
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,7 +180,7 @@
             <li class="nav-item dropdown active">
               <a
                 class="nav-link dropdown-toggle"
-                href="./cart.html"
+                href="./cart.php"
                 id="dropdown04"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -89,7 +197,7 @@
               <a href="contact.html" class="nav-link">Contact</a>
             </li>
             <li class="nav-item cart">
-              <a href="cart.html" class="nav-link">
+              <a href="cart.php" class="nav-link">
                 <span class="icon icon-shopping_cart"></span>
               </a>
             </li>
@@ -228,59 +336,62 @@
             <div class="row mt-5 pt-3 d-flex">
               <div class="col-md-6 d-flex">
                 <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
-                  <h3 class="billing-heading mb-4">Cart Total</h3>
-                  <p class="d-flex">
-                    <span>Subtotal</span>
-                    <span>RP70.000</span>
-                  </p>
-                  <p class="d-flex">
-                    <span>Delivery</span>
-                    <span>Rp17.000</span>
-                  </p>
-                  <p class="d-flex">
-                    <span>Discount</span>
-                    <span>Rp3.000</span>
-                  </p>
-                  <hr />
-                  <p class="d-flex total-price">
-                    <span>Total</span>
-                    <span>Rp87.000</span>
-                  </p>
-                </div>
+    <h3 class="mb-4 billing-heading">Alamat Pengiriman</h3>
+
+<?php if (empty($addresses)): ?>
+<div class="alert alert-warning">
+    Anda belum memiliki alamat tersimpan.
+    <a href="add-address.php" class="alert-link">Tambah Alamat Baru</a>
+</div>
+<?php else: ?>
+    <?php foreach ($addresses as $address): ?>
+        <div class="form-group">
+            <label>
+                <input type="radio" name="address_id" value="<?php echo $address['id']; ?>" 
+                       <?php echo $address['is_default'] ? 'checked' : ''; ?>>
+                <strong><?php echo htmlspecialchars($address['label']); ?></strong><br>
+                <?php echo htmlspecialchars($address['recipient_name']); ?><br>
+                <?php echo htmlspecialchars($address['phone']); ?><br>
+                <?php echo htmlspecialchars($address['address_line']); ?>
+            </label>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+
+    <p class="d-flex">
+        <span>Subtotal</span>
+        <span><?php echo formatRupiah($subtotal); ?></span>
+    </p>
+
+    <p class="d-flex">
+        <span>Ongkos Kirim</span>
+        <span><?php echo formatRupiah($delivery_fee); ?></span>
+    </p>
+
+    <hr>
+
+    <p class="d-flex total-price">
+        <span>Total</span>
+        <span><?php echo formatRupiah($total); ?></span>
+    </p>
+</div>
+
               </div>
               <div class="col-md-6">
                 <div class="cart-detail ftco-bg-dark p-3 p-md-4">
-                  <h3 class="billing-heading mb-4">Payment Method</h3>
-                  <div class="form-group">
-                    <div class="col-md-12">
-                      <div class="radio">
-                        <label
-                          ><input type="radio" name="optradio" class="mr-2" />
-                          Direct Bank Tranfer</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-md-12">
-                      <div class="radio">
-                        <label
-                          ><input type="radio" name="optradio" class="mr-2" />
-                          QRIS</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-md-12">
-                      <div class="radio">
-                        <label
-                          ><input type="radio" name="optradio" class="mr-2" />
-                          Virtual Account</label
-                        >
-                      </div>
-                    </div>
-                  </div>
+                  <h3 class="billing-heading mb-4">Metode Pembayaran</h3>
+
+<div class="form-group">
+    <label><input type="radio" name="payment_method" value="cash" checked> Cash</label>
+</div>
+<div class="form-group">
+    <label><input type="radio" name="payment_method" value="transfer"> Transfer Bank</label>
+</div>
+<div class="form-group">
+    <label><input type="radio" name="payment_method" value="qris"> QRIS</label>
+</div>
+
                   <div class="form-group">
                     <div class="col-md-12">
                       <div class="checkbox">
@@ -292,9 +403,8 @@
                     </div>
                   </div>
                   <p>
-                    <a href="#" class="btn btn-primary py-3 px-4"
-                      >Place an order</a
-                    >
+                    <button type="submit" class="btn btn-primary py-3 px-4">Buat Pesanan</button>
+
                   </p>
                 </div>
               </div>
