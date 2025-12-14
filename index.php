@@ -27,7 +27,6 @@ include "functions.php"
   <link rel="stylesheet" href="./css/flaticon.css" />
   <link rel="stylesheet" href="./css/icomoon.css" />
   <link rel="stylesheet" href="./css/style.css" />
-  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <style>
     /* Map helpers with fixed height */
     .map-gap {
@@ -52,114 +51,11 @@ include "functions.php"
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Umah<small>Kawan</small></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="menu.html" class="nav-link">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a href="services.html" class="nav-link">Review</a>
-          </li>
 
-          <li class="nav-item">
-            <a href="about.html" class="nav-link">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="./cart.html" id="dropdown04" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Shop</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="shop.html">Shop</a>
-              <a class="dropdown-item" href="./produk.html">Single Product</a>
-              <a class="dropdown-item" href="checkout.html">Checkout</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a href="contact.html" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item cart">
-            <a href="cart.html" class="nav-link">
-              <span class="icon icon-shopping_cart"></span>
+  <?php require "navbar.php"; ?>
 
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php require "carousel.php"; ?>
 
-  <!-- END nav -->
-
-  <section class="home-slider owl-carousel">
-    <div class="slider-item" style="background-image: url(./img/bgrujak.png)">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-          <div class="col-md-8 col-sm-12 text-center ftco-animate">
-            <span class="subheading">Welcome</span>
-            <h1 class="mb-4">The Best Rujak Testing Experience</h1>
-            <ion-icon name="cart"></ion-icon>
-            <p class="mb-4 mb-md-5">
-              Taste the ultimate flavor adventure! Our Rujak is crafted from handpicked, fresh fruits and an unmatched signature sweet and spicy dressing. Don't just look—add it to your cart and experience the difference!
-            </p>
-            <p>
-              <!-- <a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3"
-                  >Order Now</a
-                > -->
-              <a href="./menu.html" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="slider-item" style="background-image: url(./img/bg-rujak2.png)">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-          <div class="col-md-8 col-sm-12 text-center ftco-animate">
-            <span class="subheading">Wellcome</span>
-            <h1 class="mb-4">Authentic Rujak Flavors, Soothing Ambience</h1>
-            <p class="mb-4 mb-md-5">
-              The perfect blend of authentic Balinese sweet and spicy flavors with a comfortable, natural setting. It's
-              time to treat yourself!
-            </p>
-            <p>
-              <a href="./menu.html" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">VIEW MENU</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="slider-item" style="background-image: url(img/bg_packaging.png)">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-          <div class="col-md-8 col-sm-12 text-center ftco-animate">
-            <span class="subheading">Wellcome</span>
-            <h1 class="mb-4">Savory, Warm, and Ready to Eat Anywhere</h1>
-            <p class="mb-4 mb-md-5">
-              Tipat Cantok and Plecing with creamy peanut sauce, served warm in secure and hygienic packaging. Order
-              now, enjoy soon!
-            </p>
-            <p>
-              <a href="./menu.html" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">VIEW MENU</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="ftco-intro">
     <div class="container-wrap">
@@ -218,42 +114,13 @@ include "functions.php"
               </div>
             </div>
           </form>
-          <script>
-            function handleWhatsAppOrder(event) {
-              event.preventDefault();
-              
-              // Get form values
-              const firstName = document.getElementById('firstName').value;
-              const lastName = document.getElementById('lastName').value;
-              const address = document.getElementById('address').value;
-              const orderMessage = document.getElementById('orderMessage').value;
-              
-              // Format the message
-              const message = `*New Order from ${firstName} ${lastName}*\n\n` +
-                            `📍 Alamat: ${address}\n\n` +
-                            `🛒 Pesanan:\n${orderMessage}`;
-              
-              // WhatsApp phone number (Indonesia format)
-              const phone = '62895338181468';  // Your WhatsApp number without '+' or leading 0
-              
-              // Encode the message for URL
-              const encodedMessage = encodeURIComponent(message);
-              
-              // Build the WhatsApp URL
-              const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
-              
-              // Open WhatsApp in a new tab
-              window.open(whatsappURL, '_blank');
-              
-              return false;
-            }
-          </script>
+
         </div>
       </div>
     </div>
   </section>
 
-  
+
 
   <section class="ftco-about d-md-flex">
     <div class="one-half img" style="background-image: url(./img/warung\ rujak.png)"></div>
@@ -275,7 +142,7 @@ include "functions.php"
             tipat cantok. Word spread across the island, and soon Umah Kawan
             was no longer just a name — it was an experience loved by many.
             Today, with more than 2,000 five-star reviews, Umah Kawan
-            continues to serve not only food, but friendship in every bite.
+            continues to serve not only food, but friendship in every bite.
           </p>
         </div>
       </div>
@@ -343,7 +210,7 @@ include "functions.php"
               signature sauces handcrafted daily. Get ready for a delicious explosion of sweet, sour, and spicy.
             </p>
             <p>
-              <a href="./menu.html" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a>
+              <a href="./menu.php" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a>
             </p>
           </div>
         </div>
@@ -453,7 +320,7 @@ include "functions.php"
           <div class="menu-entry">
             <a href="#" class="img" style="background-image: url(./img/rujakuahpindangHD.png)"></a>
             <div class="text text-center pt-4">
-              <h3><a href="./product-single.html">Rujak Kuah Pindang</a></h3>
+              <h3><a href="./product-single.php">Rujak Kuah Pindang</a></h3>
               <p>
                 Segar pedas gurih khas kuah pindang Bali.
               </p>
@@ -519,32 +386,24 @@ include "functions.php"
     <div class="container-wrap">
       <div class="row no-gutters">
         <div class="col-md-3 ftco-animate">
-          <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran1.jpg)">
-            <div class="icon mb-4 d-flex align-items-center justify-content-center">
-              <span class="icon-search"></span>
-            </div>
-          </a>
+          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran1.jpg)">
+
+          </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran2.jpg)">
-            <div class="icon mb-4 d-flex align-items-center justify-content-center">
-              <span class="icon-search"></span>
-            </div>
-          </a>
+          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran2.jpg)">
+
+          </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery3.png)">
-            <div class="icon mb-4 d-flex align-items-center justify-content-center">
-              <span class="icon-search"></span>
-            </div>
-          </a>
+          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery3.png)">
+
+          </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery1.jpg)">
-            <div class="icon mb-4 d-flex align-items-center justify-content-center">
-              <span class="icon-search"></span>
-            </div>
-          </a>
+          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery1.jpg)">
+
+          </span>
         </div>
       </div>
     </div>
@@ -933,87 +792,9 @@ include "functions.php"
         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
-
-  <footer class="ftco-footer ftco-section img">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row mb-5">
-        <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-          <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2">Toko Rujak Umah Kawan</h2>
-            <p>
-              Kami menyajikan rujak tradisional Bali dengan bahan-bahan segar
-              dan sambal khas rumah. Nikmati paduan buah segar, bumbu
-              pedas-manis, dan pelayanan ramah.
-            </p>
-            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-              <li class="ftco-animate">
-                <a href="#"><span class="icon-twitter"></span></a>
-              </li>
-              <li class="ftco-animate">
-                <a href="#"><span class="icon-facebook"></span></a>
-              </li>
-              <li class="ftco-animate">
-                <a href="#"><span class="icon-instagram"></span></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
-          <div class="ftco-footer-widget mb-4 ml-md-4">
-            <h2 class="ftco-heading-2">Services</h2>
-            <ul class="list-unstyled">
-              <li><a href="#" class="py-2 d-block">Cooked</a></li>
-              <li><a href="#" class="py-2 d-block">Deliver</a></li>
-              <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
-              <li><a href="#" class="py-2 d-block">Mixed</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-          <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2">Have a Questions?</h2>
-            <div class="block-23 mb-3">
-              <ul>
-                <li>
-                  <span class="icon icon-map-marker"></span><span class="text">Jl. P. Bungin I No.14, Pedungan, Denpasar
-                    Selatan, Bali
-                    80222</span>
-                </li>
-                <li>
-                  <a href="#"><span class="icon icon-phone"></span><span class="text">+62895-3381-81468</span></a>
-                </li>
-                <li>
-                  <a href="#"><span class="icon icon-envelope"></span><span class="text">umahkawan@gmail.com</span></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p>
-
-            Copyright &copy;
-            <script>
-              document.write(new Date().getFullYear());
-            </script>
-            All rights reserved | UmahKawan
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
+  <?php include 'footer.php'; ?>
   <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-      <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-      <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-        stroke="#F96D00" />
-    </svg>
-  </div>
+  <?php include 'loader.php'; ?>
 
   <script src="./js/jquery.min.js"></script>
   <script src="./js/jquery-migrate-3.0.1.min.js"></script>

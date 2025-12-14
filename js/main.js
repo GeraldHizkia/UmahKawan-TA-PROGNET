@@ -3,38 +3,33 @@ AOS.init({
   easing: "slide",
 });
 
-// When the user submits the order form, open WhatsApp with a prefilled message.
-function handleWhatsAppOrder(e) {
-  e && e.preventDefault && e.preventDefault();
-  // Collect values from the form fields (use placeholders as selectors to avoid changing markup much)
-  var form = document.getElementById("orderForm");
-  if (!form) return true;
-  var first = (
-    form.querySelector('input[placeholder="First Name"]') || { value: "" }
-  ).value.trim();
-  var last = (
-    form.querySelector('input[placeholder="Last Name"]') || { value: "" }
-  ).value.trim();
-  var alamat = (
-    form.querySelector('input[placeholder="Alamat"]') || { value: "" }
-  ).value.trim();
-  var message = (
-    form.querySelector('textarea[placeholder="Order"]') || { value: "" }
-  ).value.trim();
+function handleWhatsAppOrder(event) {
+  event.preventDefault();
 
-  // Build the WhatsApp message
-  var namePart = first || last ? first + (last ? " " + last : "") : "";
-  var text = "Halo, Rujak Umah Kawan👋! \n Saya ingin memesan:" + "\n";
-  if (namePart) text += "Nama: " + namePart + "\n";
-  if (alamat) text += "Alamat: " + alamat + "\n";
-  if (message) text += "Pesanan: " + message + "\n";
+  // Get form values
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const address = document.getElementById("address").value;
+  const orderMessage = document.getElementById("orderMessage").value;
 
-  // Target phone (from site contact) in international format without + or spaces
-  var phone = "62895331931513";
-  var waUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+  // Format the message
+  const message =
+    `*New Order from ${firstName} ${lastName}*\n\n` +
+    `📍 Alamat: ${address}\n\n` +
+    `🛒 Pesanan:\n${orderMessage}`;
 
-  // Open in a new tab/window
-  window.open(waUrl, "_blank");
+  // WhatsApp phone number (Indonesia format)
+  const phone = "62895338181468"; // Your WhatsApp number without '+' or leading 0
+
+  // Encode the message for URL
+  const encodedMessage = encodeURIComponent(message);
+
+  // Build the WhatsApp URL
+  const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+  // Open WhatsApp in a new tab
+  window.open(whatsappURL, "_blank");
+
   return false;
 }
 

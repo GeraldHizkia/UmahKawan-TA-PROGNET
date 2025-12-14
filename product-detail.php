@@ -5,7 +5,6 @@ include 'config.php';
 include 'functions.php';
 
 // Get cart count
-$cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
 // Ambil ID produk dari URL
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -47,6 +46,7 @@ $result_related = mysqli_stmt_get_result($stmt_related);
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <title><?php echo htmlspecialchars($product['name']); ?> - UmahKawan</title>
     <meta charset="utf-8">
@@ -67,46 +67,24 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .product-image { width:100%; height:560px; object-fit:contain; display:block; }
-        @media (max-width:767px){ .product-image{ height:auto; } }
+        .product-image {
+            width: 100%;
+            height: 560px;
+            object-fit: contain;
+            display: block;
+        }
+
+        @media (max-width:767px) {
+            .product-image {
+                height: auto;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">Umah<small>Kawan</small></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="menu.php" class="nav-link">Menu</a></li>
-                    <li class="nav-item"><a href="services.php" class="nav-link">Review</a></li>
-                    <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="shop.php" id="dropdown04" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Shop</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="shop.php">Shop</a>
-                            <a class="dropdown-item" href="product-detail.php">Single Product</a>
-                            <a class="dropdown-item" href="checkout.php">Checkout</a>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-                    <li class="nav-item cart">
-                        <a href="cart.php" class="nav-link">
-                            <span class="icon icon-shopping_cart"></span>
-                            <?php if ($cart_count > 0): ?>
-                            <span class="badge badge-danger"><?php echo $cart_count; ?></span>
-                            <?php endif; ?>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php require "navbar.php"; ?>
+
 
     <section class="home-slider owl-carousel">
         <div class="slider-item" style="background-image: url(img/Landing\ Page.jpg);" data-stellar-background-ratio="0.5">
@@ -116,7 +94,7 @@ $result_related = mysqli_stmt_get_result($stmt_related);
                     <div class="col-md-7 col-sm-12 text-center ftco-animate">
                         <h1 class="mb-3 mt-5 bread">Product Detail</h1>
                         <p class="breadcrumbs">
-                            <span class="mr-2"><a href="index.php">Home</a></span> 
+                            <span class="mr-2"><a href="index.php">Home</a></span>
                             <span>Product Detail</span>
                         </p>
                     </div>
@@ -125,26 +103,26 @@ $result_related = mysqli_stmt_get_result($stmt_related);
         </div>
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section" id="product">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 mb-5 ftco-animate">
                     <a href="<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>" class="image-popup">
-                        <img src="<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>" 
-                             class="img-fluid product-image" 
-                             alt="<?php echo htmlspecialchars($product['NAME']); ?>">
+                        <img src="<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>"
+                            class="img-fluid product-image"
+                            alt="<?php echo htmlspecialchars($product['name']); ?>">
                     </a>
                 </div>
                 <div class="col-lg-5 product-details pl-md-5 ftco-animate">
-                    <h3><?php echo htmlspecialchars($product['NAME']); ?></h3>
+                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                     <p class="price"><span><?php echo formatRupiah($product['price']); ?></span></p>
-                    <p><?php echo nl2br(htmlspecialchars($product['DESCRIPTION'])); ?></p>
-                    
+                    <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+
                     <form action="add-to-cart.php" method="POST" id="orderForm">
                         <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['NAME']); ?>">
+                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
                         <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                        
+
                         <div class="row mt-4">
                             <div class="col-md-6">
                                 <div class="form-group d-flex">
@@ -199,66 +177,26 @@ $result_related = mysqli_stmt_get_result($stmt_related);
             </div>
             <div class="row">
                 <?php while ($related = mysqli_fetch_assoc($result_related)): ?>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="product-detail.php?id=<?php echo $related['id']; ?>" 
-                           class="img" 
-                           style="background-image: url(<?php echo htmlspecialchars(getImagePath($related['image_url'])); ?>);"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a></h3>
-                            <p><?php echo htmlspecialchars($related['description']); ?></p>
-                            <p class="price"><span><?php echo formatRupiah($related['price']); ?></span></p>
-                            <p><a href="product-detail.php?id=<?php echo $related['id']; ?>" class="btn btn-primary btn-outline-primary">View Detail</a></p>
+                    <div class="col-md-3">
+                        <div class="menu-entry">
+                            <a href="product-detail.php?id=<?php echo $related['id']; ?>"
+                                class="img"
+                                style="background-image: url(<?php echo htmlspecialchars(getImagePath($related['image_url'])); ?>);"></a>
+                            <div class="text text-center pt-4">
+                                <h3><a href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a></h3>
+                                <p><?php echo htmlspecialchars($related['description']); ?></p>
+                                <p class="price"><span><?php echo formatRupiah($related['price']); ?></span></p>
+                                <p><a href="product-detail.php?id=<?php echo $related['id']; ?>" class="btn btn-primary btn-outline-primary">View Detail</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php endwhile; ?>
             </div>
         </div>
     </section>
 
-    <footer class="ftco-footer ftco-section img">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Toko Rujak Umah Kawan</h2>
-                        <p>Kami menyajikan rujak tradisional Bali dengan bahan-bahan segar dan sambal khas rumah.</p>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">Jl. P. Bungin I No.14, Pedungan, Denpasar Selatan, Bali 80222</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62895-3381-81468</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">umahkawan@gmail.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | UmahKawan</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div id="ftco-loader" class="show fullscreen">
-        <svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
-        </svg>
-    </div>
+    <?php include 'footer.php'; ?>
+    <?php include 'loader.php'; ?>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -275,24 +213,50 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <script src="js/main.js"></script>
 
     <script>
-    $(document).ready(function(){
-        var quantitiy=0;
-        $('.quantity-right-plus').click(function(e){
-            e.preventDefault();
-            var quantity = parseInt($('#quantity').val());
-            $('#quantity').val(quantity + 1);
+        $(document).ready(function() {
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function(e) {
+                e.preventDefault();
+                var quantity = parseInt($('#quantity').val());
+                $('#quantity').val(quantity + 1);
+            });
+
+            $('.quantity-left-minus').click(function(e) {
+                e.preventDefault();
+                var quantity = parseInt($('#quantity').val());
+                if (quantity > 1) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
         });
 
-        $('.quantity-left-minus').click(function(e){
-            e.preventDefault();
-            var quantity = parseInt($('#quantity').val());
-            if(quantity>1){
-                $('#quantity').val(quantity - 1);
-            }
+        $(document).ready(function() {
+            // Auto scroll ke section product setelah 1 detik
+            setTimeout(function() {
+                $('html, body').animate({
+                    scrollTop: $('#product').offset().top - 50 // -80 untuk offset navbar
+                }, 300); // 800ms durasi animasi scroll
+            }, 700); // 1000ms = 1 detik delay
+
+            // Quantity buttons handler
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function(e) {
+                e.preventDefault();
+                var quantity = parseInt($('#quantity').val());
+                $('#quantity').val(quantity + 1);
+            });
+
+            $('.quantity-left-minus').click(function(e) {
+                e.preventDefault();
+                var quantity = parseInt($('#quantity').val());
+                if (quantity > 1) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
         });
-    });
     </script>
 </body>
+
 </html>
 <?php
 mysqli_stmt_close($stmt_related);

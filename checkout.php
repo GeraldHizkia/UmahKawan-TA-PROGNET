@@ -6,8 +6,8 @@ include 'functions.php';
 
 // Redirect jika cart kosong
 if (empty($_SESSION['cart'])) {
-    header('Location: cart.php');
-    exit();
+  header('Location: cart.php');
+  exit();
 }
 
 // Check if user logged in
@@ -17,21 +17,21 @@ $user_id = $_SESSION['user_id'] ?? null;
 // Get user addresses if logged in
 $addresses = [];
 if ($is_logged_in) {
-    $query = "SELECT * FROM addresses WHERE user_id = ? ORDER BY is_default DESC, id DESC";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $addresses[] = $row;
-    }
-    mysqli_stmt_close($stmt);
+  $query = "SELECT * FROM addresses WHERE user_id = ? ORDER BY is_default DESC, id DESC";
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, "i", $user_id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+  while ($row = mysqli_fetch_assoc($result)) {
+    $addresses[] = $row;
+  }
+  mysqli_stmt_close($stmt);
 }
 
 // Calculate totals
 $subtotal = 0;
 foreach ($_SESSION['cart'] as $item) {
-    $subtotal += $item['price'] * $item['quantity'];
+  $subtotal += $item['price'] * $item['quantity'];
 }
 $delivery_fee = 5000;
 $total = $subtotal + $delivery_fee;
@@ -39,594 +39,425 @@ $total = $subtotal + $delivery_fee;
 // Handle form submission
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $payment_method = $_POST['payment_method'] ?? 'cash';
-    $order_notes = trim($_POST['order_notes'] ?? '');
-    
-    if ($is_logged_in) {
-        // For logged in users
-        $address_id = intval($_POST['address_id'] ?? 0);
-        
-        if ($address_id == 0) {
-            $errors[] = "Silakan pilih alamat pengiriman";
-        }
-        
-        if (empty($errors)) {
-            // Create order for logged in user
-            $order_number = 'RJK' . date('Ymd') . sprintf('%04d', rand(1, 9999));
-            
-            $query = "INSERT INTO orders (order_number, user_id, address_id, order_status, 
+  $payment_method = $_POST['payment_method'] ?? 'cash';
+  $order_notes = trim($_POST['order_notes'] ?? '');
+
+  if ($is_logged_in) {
+    // For logged in users
+    $address_id = intval($_POST['address_id'] ?? 0);
+
+    if ($address_id == 0) {
+      $errors[] = "Silakan pilih alamat pengiriman";
+    }
+
+    if (empty($errors)) {
+      // Create order for logged in user
+      $order_number = 'RJK' . date('Ymd') . sprintf('%04d', rand(1, 9999));
+
+      $query = "INSERT INTO orders (order_number, user_id, address_id, order_status, 
                      payment_status, payment_method, subtotal, delivery_fee, total, notes)
                      VALUES (?, ?, ?, 'pending', 'unpaid', ?, ?, ?, ?, ?)";
-            
-            $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "siisddds", 
-                $order_number, $user_id, $address_id, $payment_method,
-                $subtotal, $delivery_fee, $total, $order_notes
-            );
-            
-            if (mysqli_stmt_execute($stmt)) {
-                $order_id = mysqli_insert_id($conn);
-                
-                // Insert order items
-                foreach ($_SESSION['cart'] as $item) {
-                    $item_notes = "Pedas: " . $item['spicy_level'];
-                    if (!empty($item['notes'])) {
-                        $item_notes .= " | " . $item['notes'];
-                    }
-                    
-                    $item_subtotal = $item['price'] * $item['quantity'];
-                    
-                    $query_item = "INSERT INTO order_items 
+
+      $stmt = mysqli_prepare($conn, $query);
+      mysqli_stmt_bind_param(
+        $stmt,
+        "siisddds",
+        $order_number,
+        $user_id,
+        $address_id,
+        $payment_method,
+        $subtotal,
+        $delivery_fee,
+        $total,
+        $order_notes
+      );
+
+      if (mysqli_stmt_execute($stmt)) {
+        $order_id = mysqli_insert_id($conn);
+
+        // Insert order items
+        foreach ($_SESSION['cart'] as $item) {
+          $item_notes = "Pedas: " . $item['spicy_level'];
+          if (!empty($item['notes'])) {
+            $item_notes .= " | " . $item['notes'];
+          }
+
+          $item_subtotal = $item['price'] * $item['quantity'];
+
+          $query_item = "INSERT INTO order_items 
                                   (order_id, product_id, product_name, quantity, price, subtotal, notes)
                                   VALUES (?, ?, ?, ?, ?, ?, ?)";
-                    $stmt_item = mysqli_prepare($conn, $query_item);
-                    mysqli_stmt_bind_param($stmt_item, "iisidds",
-                        $order_id, $item['product_id'], $item['name'],
-                        $item['quantity'], $item['price'], $item_subtotal, $item_notes
-                    );
-                    mysqli_stmt_execute($stmt_item);
-                    mysqli_stmt_close($stmt_item);
-                }
-                
-                // Clear cart
-                $_SESSION['cart'] = [];
-                
-                // Redirect to success page
-                header("Location: order-complete.php?order_number=$order_number");
-                exit();
-            }
-            
-            mysqli_stmt_close($stmt);
+          $stmt_item = mysqli_prepare($conn, $query_item);
+          mysqli_stmt_bind_param(
+            $stmt_item,
+            "iisidds",
+            $order_id,
+            $item['product_id'],
+            $item['name'],
+            $item['quantity'],
+            $item['price'],
+            $item_subtotal,
+            $item_notes
+          );
+          mysqli_stmt_execute($stmt_item);
+          mysqli_stmt_close($stmt_item);
         }
-    } else {
-        // For guest users - redirect to login/register
-        $_SESSION['checkout_redirect'] = true;
-        header('Location: login.php');
+
+        // Clear cart
+        $_SESSION['cart'] = [];
+
+        // Redirect to success page
+        header("Location: order-complete.php?order_number=$order_number");
         exit();
+      }
+
+      mysqli_stmt_close($stmt);
     }
+  } else {
+    // For guest users - redirect to login/register
+    $_SESSION['checkout_redirect'] = true;
+    header('Location: login.php');
+    exit();
+  }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>UmahKawan</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Great+Vibes"
-      rel="stylesheet"
-    />
+<head>
+  <title>UmahKawan</title>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
-    <link rel="stylesheet" href="css/animate.css" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Great+Vibes"
+    rel="stylesheet" />
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" />
+  <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="css/animate.css" />
 
-    <link rel="stylesheet" href="css/aos.css" />
+  <link rel="stylesheet" href="css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="css/magnific-popup.css" />
 
-    <link rel="stylesheet" href="css/ionicons.min.css" />
+  <link rel="stylesheet" href="css/aos.css" />
 
-    <link rel="stylesheet" href="css/flaticon.css" />
-    <link rel="stylesheet" href="css/icomoon.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-      id="ftco-navbar"
-    >
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Umah<small>Kawan</small></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#ftco-nav"
-          aria-controls="ftco-nav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="oi oi-menu"></span> Menu
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="menu.html" class="nav-link">Menu</a>
-            </li>
-            <li class="nav-item">
-              <a href="services.html" class="nav-link">Review</a>
-            </li>
+  <link rel="stylesheet" href="css/ionicons.min.css" />
 
-            <li class="nav-item">
-              <a href="about.html" class="nav-link">About</a>
-            </li>
-            <li class="nav-item dropdown active">
-              <a
-                class="nav-link dropdown-toggle"
-                href="./cart.php"
-                id="dropdown04"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Shop</a
-              >
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-                <a class="dropdown-item" href="shop.html">Shop</a>
-                <a class="dropdown-item" href="./produk.html">Single Product</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item cart">
-              <a href="cart.php" class="nav-link">
-                <span class="icon icon-shopping_cart"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <link rel="stylesheet" href="css/flaticon.css" />
+  <link rel="stylesheet" href="css/icomoon.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 
-    <!-- END nav -->
-    <section class="home-slider owl-carousel">
-      <div
-        class="slider-item"
-        style="background-image: url(img/bg_packaging.png)"
-        data-stellar-background-ratio="0.5"
-      >
-        <div class="overlay"></div>
-        <div class="container">
-          <div
-            class="row slider-text justify-content-center align-items-center"
-          >
-            <div class="col-md-7 col-sm-12 text-center ftco-animate">
-              <h1 class="mb-3 mt-5 bread">Checkout</h1>
-              <p class="breadcrumbs">
-                <span class="mr-2"><a href="index.html">Home</a></span>
-                <span>Checout</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<body>
+  <?php require "navbar.php"; ?>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-8 ftco-animate">
-            <form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
-              <h3 class="mb-4 billing-heading">Billing Details</h3>
-              <div class="row align-items-end">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="firstname">Firt Name</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="lastname">Last Name</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="country">State / Country</label>
-                    <div class="select-wrap">
-                      <div class="icon">
-                        <span class="ion-ios-arrow-down"></span>
-                      </div>
-                      <select name="" id="" class="form-control">
-                        <option value="">France</option>
-                        <option value="">Italy</option>
-                        <option value="">Philippines</option>
-                        <option value="">South Korea</option>
-                        <option value="">Hongkong</option>
-                        <option value="">Japan</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="streetaddress">Street Address</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="House number and street name"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Appartment, suite, unit etc: (optional)"
-                    />
-                  </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="towncity">Town / City</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="postcodezip">Postcode / ZIP *</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="emailaddress">Email Address</label>
-                    <input type="text" class="form-control" placeholder="" />
-                  </div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-md-12">
-                  <div class="form-group mt-4">
-                    <div class="radio">
-                      <label class="mr-3"
-                        ><input type="radio" name="optradio" /> Create an
-                        Account?
-                      </label>
-                      <label
-                        ><input type="radio" name="optradio" /> Ship to
-                        different address</label
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <!-- END -->
-
-            <div class="row mt-5 pt-3 d-flex">
-              <div class="col-md-6 d-flex">
-                <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
-    <h3 class="mb-4 billing-heading">Alamat Pengiriman</h3>
-
-<?php if (empty($addresses)): ?>
-<div class="alert alert-warning">
-    Anda belum memiliki alamat tersimpan.
-    <a href="add-address.php" class="alert-link">Tambah Alamat Baru</a>
-</div>
-<?php else: ?>
-    <?php foreach ($addresses as $address): ?>
-        <div class="form-group">
-            <label>
-                <input type="radio" name="address_id" value="<?php echo $address['id']; ?>" 
-                       <?php echo $address['is_default'] ? 'checked' : ''; ?>>
-                <strong><?php echo htmlspecialchars($address['label']); ?></strong><br>
-                <?php echo htmlspecialchars($address['recipient_name']); ?><br>
-                <?php echo htmlspecialchars($address['phone']); ?><br>
-                <?php echo htmlspecialchars($address['address_line']); ?>
-            </label>
-        </div>
-    <?php endforeach; ?>
-<?php endif; ?>
-
-
-    <p class="d-flex">
-        <span>Subtotal</span>
-        <span><?php echo formatRupiah($subtotal); ?></span>
-    </p>
-
-    <p class="d-flex">
-        <span>Ongkos Kirim</span>
-        <span><?php echo formatRupiah($delivery_fee); ?></span>
-    </p>
-
-    <hr>
-
-    <p class="d-flex total-price">
-        <span>Total</span>
-        <span><?php echo formatRupiah($total); ?></span>
-    </p>
-</div>
-
-              </div>
-              <div class="col-md-6">
-                <div class="cart-detail ftco-bg-dark p-3 p-md-4">
-                  <h3 class="billing-heading mb-4">Metode Pembayaran</h3>
-
-<div class="form-group">
-    <label><input type="radio" name="payment_method" value="cash" checked> Cash</label>
-</div>
-<div class="form-group">
-    <label><input type="radio" name="payment_method" value="transfer"> Transfer Bank</label>
-</div>
-<div class="form-group">
-    <label><input type="radio" name="payment_method" value="qris"> QRIS</label>
-</div>
-
-                  <div class="form-group">
-                    <div class="col-md-12">
-                      <div class="checkbox">
-                        <label
-                          ><input type="checkbox" value="" class="mr-2" /> I
-                          have read and accept the terms and conditions</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <p>
-                    <button type="submit" class="btn btn-primary py-3 px-4">Buat Pesanan</button>
-
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- .col-md-8 -->
-
-          <div class="col-xl-4 sidebar ftco-animate">
-            <div class="sidebar-box">
-              <form action="#" class="search-form">
-                <div class="form-group">
-                  <div class="icon">
-                    <span class="icon-search"></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search..."
-                  />
-                </div>
-              </form>
-            </div>
-            <div class="sidebar-box ftco-animate">
-              <div class="categories">
-                <h3>Categories</h3>
-                <li>
-                  <a href="#">Rujak <span>(12)</span></a>
-                </li>
-                <li>
-                  <a href="#">Plecing <span>(22)</span></a>
-                </li>
-                <li>
-                  <a href="#">Beer <span>(37)</span></a>
-                </li>
-                <li>
-                  <a href="#">Drinks <span>(42)</span></a>
-                </li>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Tag Cloud</h3>
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">dish</a>
-                <a href="#" class="tag-cloud-link">menu</a>
-                <a href="#" class="tag-cloud-link">food</a>
-                <a href="#" class="tag-cloud-link">sweet</a>
-                <a href="#" class="tag-cloud-link">tasty</a>
-                <a href="#" class="tag-cloud-link">delicious</a>
-                <a href="#" class="tag-cloud-link">desserts</a>
-                <a href="#" class="tag-cloud-link">drinks</a>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Thankyou</h3>
-              <p>
-                Thank you for ordering from Umah Kawan! Your order is being
-                freshly prepared with love and authentic Balinese ingredients.
-                We’ll contact you soon to confirm and deliver your rujak. Enjoy
-                your fresh and flavorful treat!!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="ftco-footer ftco-section img">
+  <section class="home-slider owl-carousel">
+    <div
+      class="slider-item"
+      style="background-image: url(img/bg_packaging.png)"
+      data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Toko Rujak Umah Kawan</h2>
-              <p>
-                Kami menyajikan rujak tradisional Bali dengan bahan-bahan segar
-                dan sambal khas rumah. Nikmati paduan buah segar, bumbu
-                pedas-manis, dan pelayanan ramah.
-              </p>
-              <ul
-                class="ftco-footer-social list-unstyled float-md-left float-lft mt-3"
-              >
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-twitter"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-facebook"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-instagram"></span></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Recent Blog section removed -->
-          <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Services</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Cooked</a></li>
-                <li><a href="#" class="py-2 d-block">Deliver</a></li>
-                <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
-                <li><a href="#" class="py-2 d-block">Mixed</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Have a Questions?</h2>
-              <div class="block-23 mb-3">
-                <ul>
-                  <li>
-                    <span class="icon icon-map-marker"></span
-                    ><span class="text"
-                      >Jl. P. Bungin I No.14, Pedungan, Denpasar Selatan, Bali
-                      80222</span
-                    >
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><span class="icon icon-phone"></span
-                      ><span class="text">+62895-3381-81468</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><span class="icon icon-envelope"></span
-                      ><span class="text">umahkawan@gmail.com</span></a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              All rights reserved | UmahKawan
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div
+          class="row slider-text justify-content-center align-items-center">
+          <div class="col-md-7 col-sm-12 text-center ftco-animate">
+            <h1 class="mb-3 mt-5 bread">Checkout</h1>
+            <p class="breadcrumbs">
+              <span class="mr-2"><a href="index.html">Home</a></span>
+              <span>Checout</span>
             </p>
           </div>
         </div>
       </div>
-    </footer>
-
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen">
-      <svg class="circular" width="48px" height="48px">
-        <circle
-          class="path-bg"
-          cx="24"
-          cy="24"
-          r="22"
-          fill="none"
-          stroke-width="4"
-          stroke="#eeeeee"
-        />
-        <circle
-          class="path"
-          cx="24"
-          cy="24"
-          r="22"
-          fill="none"
-          stroke-width="4"
-          stroke-miterlimit="10"
-          stroke="#F96D00"
-        />
-      </svg>
     </div>
+  </section>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
+  <section class="ftco-section">
+    <div class="container">
+      <form action="process-checkout.php" method="POST" id="checkoutForm">
+        <div class="row">
+          <!-- Informasi Pengiriman -->
+          <div class="col-md-7 mb-4">
+            <div class="ftco-bg-dark p-4 p-md-5">
+              <h3 class="mb-4">Informasi Pengiriman</h3>
 
-    <script src="js/main.js"></script>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">Nama Lengkap *</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="phone">No. Telepon *</label>
+                    <input type="tel" name="phone" id="phone" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="address">Alamat Lengkap *</label>
+                    <textarea name="address" id="address" rows="3" class="form-control" required></textarea>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="city">Kota *</label>
+                    <input type="text" name="city" id="city" class="form-control" value="Denpasar" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="postal_code">Kode Pos</label>
+                    <input type="text" name="postal_code" id="postal_code" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="notes">Catatan Pesanan (Opsional)</label>
+                    <textarea name="notes" id="notes" rows="2" class="form-control" placeholder="Contoh: Mohon hubungi sebelum antar"></textarea>
+                  </div>
+                </div>
+              </div>
 
-    <script>
-      $(document).ready(function () {
-        var quantitiy = 0;
-        $(".quantity-right-plus").click(function (e) {
-          // Stop acting like a button
-          e.preventDefault();
-          // Get the field name
-          var quantity = parseInt($("#quantity").val());
+              <?php if (!empty($addresses)): ?>
+                <hr class="my-4">
+                <h5 class="mb-3">Atau Pilih Alamat Tersimpan:</h5>
+                <?php foreach ($addresses as $address): ?>
+                  <div class="custom-control custom-radio mb-3">
+                    <input type="radio" id="addr_<?php echo $address['id']; ?>"
+                      name="saved_address_id" value="<?php echo $address['id']; ?>"
+                      class="custom-control-input"
+                      <?php echo $address['is_default'] ? 'checked' : ''; ?>>
+                    <label class="custom-control-label" for="addr_<?php echo $address['id']; ?>">
+                      <strong><?php echo htmlspecialchars($address['label']); ?></strong><br>
+                      <small>
+                        <?php echo htmlspecialchars($address['recipient_name']); ?> -
+                        <?php echo htmlspecialchars($address['phone']); ?><br>
+                        <?php echo htmlspecialchars($address['address_line']); ?>
+                      </small>
+                    </label>
+                  </div>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </div>
+          </div>
 
-          // If is not undefined
+          <!-- Order Summary & Payment -->
+          <div class="col-md-5">
+            <!-- Order Summary -->
+            <div class="cart-detail ftco-bg-dark p-4 mb-4">
+              <h3 class="mb-4">Ringkasan Pesanan</h3>
 
-          $("#quantity").val(quantity + 1);
+              <p class="d-flex justify-content-between">
+                <span>Subtotal</span>
+                <span><?php echo formatRupiah($subtotal); ?></span>
+              </p>
+              <p class="d-flex justify-content-between">
+                <span>Ongkos Kirim</span>
+                <span><?php echo formatRupiah($delivery_fee); ?></span>
+              </p>
+              <hr>
+              <p class="d-flex justify-content-between total-price">
+                <span><strong>Total</strong></span>
+                <span><strong><?php echo formatRupiah($total); ?></strong></span>
+              </p>
+            </div>
 
-          // Increment
-        });
+            <!-- Payment Method -->
+            <div class="cart-detail ftco-bg-dark p-4">
+              <h3 class="mb-4">Metode Pembayaran</h3>
 
-        $(".quantity-left-minus").click(function (e) {
-          // Stop acting like a button
-          e.preventDefault();
-          // Get the field name
-          var quantity = parseInt($("#quantity").val());
+              <div class="custom-control custom-radio mb-3">
+                <input type="radio" id="payment_cash" name="payment_method" value="cash"
+                  class="custom-control-input" checked>
+                <label class="custom-control-label" for="payment_cash">
+                  💵 Cash on Delivery (COD)
+                </label>
+              </div>
 
-          // If is not undefined
+              <div class="custom-control custom-radio mb-3">
+                <input type="radio" id="payment_transfer" name="payment_method" value="transfer"
+                  class="custom-control-input">
+                <label class="custom-control-label" for="payment_transfer">
+                  🏦 Transfer Bank
+                </label>
+              </div>
 
-          // Increment
-          if (quantity > 0) {
-            $("#quantity").val(quantity - 1);
-          }
-        });
+              <div class="custom-control custom-radio mb-4">
+                <input type="radio" id="payment_qris" name="payment_method" value="qris"
+                  class="custom-control-input">
+                <label class="custom-control-label" for="payment_qris">
+                  📱 QRIS
+                </label>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-4">
+                <input type="checkbox" class="custom-control-input" id="agree_terms" required>
+                <label class="custom-control-label" for="agree_terms">
+                  Saya setuju dengan <a class="text-primary" onclick="showTerms()">syarat dan ketentuan</a>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block py-3">
+                <i class="icon-credit-card"></i> Buat Pesanan
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+
+  <?php include 'footer.php'; ?>
+
+  <!-- loader -->
+  <?php include 'loader.php'; ?>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    function showTerms() {
+      Swal.fire({
+        title: 'Syarat & Ketentuan',
+        html: `
+      <div style="text-align:left; font-size:14px;">
+        <p><strong>1. Ketentuan Umum</strong></p>
+        <p>
+          Dengan menggunakan layanan ini, pengguna dianggap telah membaca,
+          memahami, dan menyetujui seluruh syarat dan ketentuan yang berlaku.
+        </p>
+
+        <p><strong>2. Penggunaan Layanan</strong></p>
+        <ul>
+          <li>Layanan hanya boleh digunakan untuk tujuan yang sah.</li>
+          <li>Pengguna bertanggung jawab atas data yang diberikan.</li>
+          <li>Dilarang menyalahgunakan sistem untuk kepentingan pribadi.</li>
+        </ul>
+
+        <p><strong>3. Data dan Privasi</strong></p>
+        <p>
+          Data pengguna akan disimpan dan digunakan sesuai kebijakan privasi
+          dan tidak akan disebarluaskan tanpa izin.
+        </p>
+
+        <p><strong>4. Perubahan Layanan</strong></p>
+        <p>
+          Pengelola berhak mengubah, menambah, atau menghapus layanan
+          tanpa pemberitahuan terlebih dahulu.
+        </p>
+
+        <p><strong>5. Penutup</strong></p>
+        <p>
+          Dengan melanjutkan penggunaan layanan, pengguna menyetujui
+          seluruh ketentuan yang telah ditetapkan.
+        </p>
+      </div>
+    `,
+        icon: 'info',
+        width: 700,
+        showCancelButton: true,
+        confirmButtonText: 'Saya Setuju',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      })
+    }
+
+
+    // Auto-fill dari alamat tersimpan
+    document.querySelectorAll('input[name="saved_address_id"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (this.checked) {
+          // Ambil data dari label
+          const label = this.parentElement.querySelector('label');
+          const text = label.textContent;
+
+          // Disable manual input
+          document.getElementById('name').disabled = true;
+          document.getElementById('phone').disabled = true;
+          document.getElementById('address').disabled = true;
+
+          // Optional: Clear manual input
+          // document.getElementById('name').value = '';
+        }
       });
-    </script>
-  </body>
+    });
+
+    // Re-enable manual input jika user mulai mengetik
+    ['name', 'phone', 'address'].forEach(id => {
+      document.getElementById(id).addEventListener('focus', function() {
+        document.querySelectorAll('input[name="saved_address_id"]').forEach(r => r.checked = false);
+        this.disabled = false;
+      });
+    });
+
+
+
+    $(document).ready(function() {
+      var quantitiy = 0;
+      $(".quantity-right-plus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($("#quantity").val());
+
+        // If is not undefined
+
+        $("#quantity").val(quantity + 1);
+
+        // Increment
+      });
+
+      $(".quantity-left-minus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($("#quantity").val());
+
+        // If is not undefined
+
+        // Increment
+        if (quantity > 0) {
+          $("#quantity").val(quantity - 1);
+        }
+      });
+    });
+  </script>
+</body>
+
 </html>

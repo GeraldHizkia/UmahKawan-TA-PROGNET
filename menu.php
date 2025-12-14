@@ -6,99 +6,53 @@ include "functions.php";
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>UmahKawan</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Great+Vibes"
-      rel="stylesheet"
-    />
+<head>
+  <title>UmahKawan</title>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
-    <link rel="stylesheet" href="css/animate.css" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Great+Vibes"
+    rel="stylesheet" />
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" />
+  <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="css/animate.css" />
 
-    <link rel="stylesheet" href="css/aos.css" />
+  <link rel="stylesheet" href="css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="css/magnific-popup.css" />
 
-    <link rel="stylesheet" href="css/ionicons.min.css" />
+  <link rel="stylesheet" href="css/aos.css" />
 
-    <link rel="stylesheet" href="css/flaticon.css" />
-    <link rel="stylesheet" href="css/icomoon.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+  <link rel="stylesheet" href="css/ionicons.min.css" />
+
+  <link rel="stylesheet" href="css/flaticon.css" />
+  <link rel="stylesheet" href="css/icomoon.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
   <body>
-  <body>
-   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Umah<small>Kawan</small></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item active">
-            <a href="menu.html" class="nav-link">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a href="services.html" class="nav-link">Review</a>
-          </li>
+    <?php require "navbar.php"; ?>
 
-          <li class="nav-item">
-            <a href="about.html" class="nav-link">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="./cart.html" id="dropdown04" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Shop</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="shop.html">Shop</a>
-              <a class="dropdown-item" href="./produk.html">Single Product</a>
-              <a class="dropdown-item" href="checkout.html">Checkout</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a href="contact.html" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item cart">
-            <a href="cart.html" class="nav-link">
-              <span class="icon icon-shopping_cart"></span>
-
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- END nav -->
 
     <section class="home-slider owl-carousel">
 
-	<div class="slider-item" style="background-image: url(img/bg1.png);" data-stellar-background-ratio="0.5">
-      	<div class="overlay"></div>
+      <div class="slider-item" style="background-image: url(img/bg1.png);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
         <div class="container">
           <div
-            class="row slider-text justify-content-center align-items-center"
-          >
+            class="row slider-text justify-content-center align-items-center">
             <div class="col-md-7 col-sm-12 text-center ftco-animate">
               <h1 class="mb-3 mt-5 bread">Our Menu</h1>
               <p class="breadcrumbs">
@@ -147,15 +101,13 @@ include "functions.php";
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="First Name"
-                  />
+                    placeholder="First Name" />
                 </div>
                 <div class="form-group ml-md-4">
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Last Name"
-                  />
+                    placeholder="Last Name" />
                 </div>
               </div>
               <div class="d-md-flex">
@@ -163,8 +115,7 @@ include "functions.php";
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Alamat"
-                  />
+                    placeholder="Alamat" />
                 </div>
               </div>
               <div class="d-md-flex">
@@ -175,15 +126,13 @@ include "functions.php";
                     cols="30"
                     rows="2"
                     class="form-control"
-                    placeholder="Message"
-                  ></textarea>
+                    placeholder="Message"></textarea>
                 </div>
                 <div class="form-group ml-md-4">
                   <input
                     type="submit"
                     value="Order"
-                    class="btn btn-white py-3 px-4"
-                  />
+                    class="btn btn-white py-3 px-4" />
                 </div>
               </div>
             </form>
@@ -195,133 +144,28 @@ include "functions.php";
     <section class="ftco-section">
       <div class="container">
         <div class="row">
-            <?php include 'menu-display.php'?>
+          <?php include 'menu-display.php' ?>
         </div>
       </div>
     </section>
 
-<section class="ftco-menu mb-5 pb-5">
-  <div class="container">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7 heading-section text-center ftco-animate">
-        <span class="subheading">Discover</span>
-        <h2 class="mb-4">Our Products</h2>
-        <p>Feeling down? It’s time to grab our fresh rujak!.</p>
-      </div>
-    </div>
-    <div class="row d-md-flex">
-      <div class="col-lg-12 ftco-animate p-md-5">
-        <?php include 'tab_menu_display.php' ?>
-      </div>
-    </section>
-    <footer class="ftco-footer ftco-section img">
-      <div class="overlay"></div>
+    <section class="ftco-menu mb-5 pb-5">
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Toko Rujak Umah Kawan</h2>
-              <p>
-                Kami menyajikan rujak tradisional Bali dengan bahan-bahan segar
-                dan sambal khas rumah. Nikmati paduan buah segar, bumbu
-                pedas-manis, dan pelayanan ramah.
-              </p>
-              <ul
-                class="ftco-footer-social list-unstyled float-md-left float-lft mt-3"
-              >
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-twitter"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-facebook"></span></a>
-                </li>
-                <li class="ftco-animate">
-                  <a href="#"><span class="icon-instagram"></span></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Recent Blog section removed -->
-          <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Services</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Cooked</a></li>
-                <li><a href="#" class="py-2 d-block">Deliver</a></li>
-                <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
-                <li><a href="#" class="py-2 d-block">Mixed</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Have a Questions?</h2>
-              <div class="block-23 mb-3">
-                <ul>
-                  <li>
-                    <span class="icon icon-map-marker"></span
-                    ><span class="text"
-                      >Jl. P. Bungin I No.14, Pedungan, Denpasar Selatan, Bali
-                      80222</span
-                    >
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><span class="icon icon-phone"></span
-                      ><span class="text">+62895-3381-81468</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="#"
-                      ><span class="icon icon-envelope"></span
-                      ><span class="text">umahkawan@gmail.com</span></a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <span class="subheading">Discover</span>
+            <h2 class="mb-4">Our Products</h2>
+            <p>Feeling down? It’s time to grab our fresh rujak!.</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              All rights reserved | UmahKawan
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
+        <div class="row d-md-flex">
+          <div class="col-lg-12 ftco-animate p-md-5">
+            <?php include 'tab_menu_display.php' ?>
           </div>
-        </div>
-      </div>
-    </footer>
-
+    </section>
+    <?php include 'footer.php'; ?>
     <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen">
-      <svg class="circular" width="48px" height="48px">
-        <circle
-          class="path-bg"
-          cx="24"
-          cy="24"
-          r="22"
-          fill="none"
-          stroke-width="4"
-          stroke="#eeeeee"
-        />
-        <circle
-          class="path"
-          cx="24"
-          cy="24"
-          r="22"
-          fill="none"
-          stroke-width="4"
-          stroke-miterlimit="10"
-          stroke="#F96D00"
-        />
-      </svg>
-    </div>
+    <?php include 'loader.php'; ?>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -337,4 +181,5 @@ include "functions.php";
     <script src="js/scrollax.min.js"></script>
     <script src="js/main.js"></script>
   </body>
+
 </html>

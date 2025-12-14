@@ -1,13 +1,11 @@
 <?php
-    $host = "localhost";
-    $username ="root";
-    $password = "";
-    $database = "umahkawan_db";
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "umahkawan";
 
-    $conn = mysqli_connect($host, $username, $password, $database);
+$conn = mysqli_connect($host, $username, $password, $database);
 
-    if (!$conn){
-        die("connection failed". mysqli_connect_error());
-    }
-
-?>
+if (!$conn) {
+    die("connection failed" . mysqli_connect_error());
+}
