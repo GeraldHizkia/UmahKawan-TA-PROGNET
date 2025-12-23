@@ -6,15 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UmahKawan</title>
 
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Great+Vibes"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="css/animate.css" />
@@ -90,26 +84,18 @@
 
   <!-- END nav -->
 
-  <section class="home-slider owl-carousel">
-    <div
-      class="slider-item"
-      style="
-          --bg-url: url('img/Gallery2.png');
-          background-image: var(--bg-url);
-        "
-      data-stellar-background-ratio="0.5">
+  <section class="home-hero">
+    <div class="hero-bg d-flex align-items-center" style="background-image: url('img/Gallery2.png');">
       <div class="overlay"></div>
-      <div class="container">
-        <div
-          class="row slider-text justify-content-center align-items-center">
-          <div class="col-md-7 col-sm-12 text-center ftco-animate">
-            <h1 class="mb-3 mt-5 bread">Review</h1>
-            <p class="breadcrumbs">
-              <span class="mr-2"><a href="index.html">Home</a></span>
-              <span>Review</span>
-            </p>
-          </div>
-        </div>
+
+      <div class="container text-center">
+        <h1 class="mb-3 mt-5 bread">Review</h1>
+
+        <p class="breadcrumbs mb-0">
+          <a href="index.php">Home</a>
+          <span class="mx-2">/</span>
+          <span>Review</span>
+        </p>
       </div>
     </div>
   </section>
@@ -119,8 +105,7 @@
       <div class="row">
         <div class="col-md-4 ftco-animate">
           <div class="media d-block text-center block-6 services">
-            <div
-              class="icon d-flex justify-content-center align-items-center mb-5">
+            <div class="icon d-flex justify-content-center align-items-center mb-5">
               <span class="flaticon-choices"></span>
             </div>
             <div class="media-body">
@@ -135,8 +120,7 @@
         </div>
         <div class="col-md-4 ftco-animate">
           <div class="media d-block text-center block-6 services">
-            <div
-              class="icon d-flex justify-content-center align-items-center mb-5">
+            <div class="icon d-flex justify-content-center align-items-center mb-5">
               <span class="flaticon-delivery-truck"></span>
             </div>
             <div class="media-body">
@@ -150,8 +134,7 @@
         </div>
         <div class="col-md-4 ftco-animate">
           <div class="media d-block text-center block-6 services">
-            <div
-              class="icon d-flex justify-content-center align-items-center mb-5">
+            <div class="icon d-flex justify-content-center align-items-center mb-5">
               <span class="flaticon-coffee-bean"></span>
             </div>
             <div class="media-body">
@@ -186,10 +169,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7502293484468997383?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7502293484468997383?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -197,10 +178,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7566861582559431943?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7566861582559431943?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -208,10 +187,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7179041704509590810?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7179041704509590810?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -219,10 +196,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7564261197210537234?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7564261197210537234?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -230,10 +205,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7550899881553005831?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7550899881553005831?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -241,10 +214,8 @@
         <div class="col-md-4 mb-4 ftco-animate">
           <div class="video-wrap">
             <div class="embed-frame">
-              <iframe
-                src="https://www.tiktok.com/embed/v2/7504519206344461586?autoplay=1&loop=1&muted=1"
-                allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
+              <iframe src="https://www.tiktok.com/embed/v2/7504519206344461586?autoplay=1&loop=1&muted=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
         </div>

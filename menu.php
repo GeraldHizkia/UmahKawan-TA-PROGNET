@@ -10,19 +10,11 @@ include "functions.php";
 <head>
   <title>UmahKawan</title>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Great+Vibes"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="css/animate.css" />
@@ -46,24 +38,23 @@ include "functions.php";
     <?php require "navbar.php"; ?>
 
 
-    <section class="home-slider owl-carousel">
-
-      <div class="slider-item" style="background-image: url(img/bg1.png);" data-stellar-background-ratio="0.5">
+    <section class="home-hero">
+      <div class="hero-bg d-flex align-items-center" style="background-image: url(img/bg1.png);">
         <div class="overlay"></div>
-        <div class="container">
-          <div
-            class="row slider-text justify-content-center align-items-center">
-            <div class="col-md-7 col-sm-12 text-center ftco-animate">
-              <h1 class="mb-3 mt-5 bread">Our Menu</h1>
-              <p class="breadcrumbs">
-                <span class="mr-2"><a href="index.html">Home</a></span>
-                <span>Menu</span>
-              </p>
-            </div>
-          </div>
+
+        <div class="container text-center">
+          <h1 class="mb-3 mt-5 bread">Our Menu</h1>
+
+          <p class="breadcrumbs mb-0">
+            <a href="index.php">Home</a>
+            <span class="mx-2">/</span>
+            <span>Menu</span>
+          </p>
         </div>
       </div>
     </section>
+
+
 
     <section class="ftco-intro">
       <div class="container-wrap">
@@ -74,7 +65,8 @@ include "functions.php";
                 <div class="icon"><span class="icon-phone"></span></div>
                 <div class="text">
                   <h3>(+62)895-3381-81468</h3>
-                  <p>Authentic Indonesian Fruit Salad, Made with Love. Original Flavors, Cozy Vibes. Every bite is a story, every blend is a moment of warmth.</p>
+                  <p>Authentic Indonesian Fruit Salad, Made with Love. Original Flavors, Cozy Vibes. Every bite is a
+                    story, every blend is a moment of warmth.</p>
                 </div>
               </div>
               <div class="col-md-4 d-flex ftco-animate">
@@ -98,41 +90,23 @@ include "functions.php";
             <form action="#" class="appointment-form">
               <div class="d-md-flex">
                 <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="First Name" />
+                  <input type="text" class="form-control" placeholder="First Name" />
                 </div>
                 <div class="form-group ml-md-4">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last Name" />
+                  <input type="text" class="form-control" placeholder="Last Name" />
                 </div>
               </div>
               <div class="d-md-flex">
                 <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Alamat" />
+                  <input type="text" class="form-control" placeholder="Alamat" />
                 </div>
               </div>
               <div class="d-md-flex">
                 <div class="form-group">
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="2"
-                    class="form-control"
-                    placeholder="Message"></textarea>
+                  <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
                 </div>
                 <div class="form-group ml-md-4">
-                  <input
-                    type="submit"
-                    value="Order"
-                    class="btn btn-white py-3 px-4" />
+                  <input type="submit" value="Order" class="btn btn-white py-3 px-4" />
                 </div>
               </div>
             </form>
@@ -162,6 +136,7 @@ include "functions.php";
           <div class="col-lg-12 ftco-animate p-md-5">
             <?php include 'tab_menu_display.php' ?>
           </div>
+        </div>
     </section>
     <?php include 'footer.php'; ?>
     <!-- loader -->

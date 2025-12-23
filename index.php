@@ -3,7 +3,7 @@ include "config.php";
 
 include "functions.php"
 
-?>
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +107,8 @@ include "functions.php"
             </div>
             <div class="d-md-flex">
               <div class="form-group">
-                <textarea id="orderMessage" cols="30" rows="2" class="form-control" placeholder="Order" required></textarea>
+                <textarea id="orderMessage" cols="30" rows="2" class="form-control" placeholder="Order"
+                  required></textarea>
               </div>
               <div class="form-group ml-md-4">
                 <button type="submit" class="btn btn-white py-3 px-4">Order via WhatsApp</button>
@@ -386,22 +387,26 @@ include "functions.php"
     <div class="container-wrap">
       <div class="row no-gutters">
         <div class="col-md-3 ftco-animate">
-          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran1.jpg)">
+          <span href="#" class="gallery img d-flex align-items-center"
+            style="background-image: url(./img/restoran1.jpg)">
 
           </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/restoran2.jpg)">
+          <span href="#" class="gallery img d-flex align-items-center"
+            style="background-image: url(./img/restoran2.jpg)">
 
           </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery3.png)">
+          <span href="#" class="gallery img d-flex align-items-center"
+            style="background-image: url(./img/gallery3.png)">
 
           </span>
         </div>
         <div class="col-md-3 ftco-animate">
-          <span href="#" class="gallery img d-flex align-items-center" style="background-image: url(./img/gallery1.jpg)">
+          <span href="#" class="gallery img d-flex align-items-center"
+            style="background-image: url(./img/gallery1.jpg)">
 
           </span>
         </div>
@@ -420,254 +425,9 @@ include "functions.php"
       </div>
       <div class="row d-md-flex">
         <div class="col-lg-12 ftco-animate p-md-5">
-          <div class="row">
-            <div class="col-md-12 nav-link-wrap mb-5">
-              <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist"
-                aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab"
-                  aria-controls="v-pills-1" aria-selected="true">Rujak</a>
-                <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
-                  aria-controls="v-pills-2" aria-selected="false">Tipat Cantok</a>
-                <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
-                  aria-controls="v-pills-3" aria-selected="false">Plecing</a>
-                <a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab"
-                  aria-controls="v-pills-4" aria-selected="false">Drinks</a>
-              </div>
-            </div>
-            <div class="col-md-12 d-flex align-items-center">
-              <div class="tab-content ftco-animate" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-                  <div class="row">
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/rjkkuahpindang.jpg)"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Kuah Pindang</a></h3>
-                          <p>Segar pedas gurih khas kuah pindang Bali.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/bg2.jpg)"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Gula</a></h3>
-                          <p>Manis asam segar dengan sambal gula merah.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/gambar_1.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Colek</a></h3>
-                          <p>Buah segar dicolek sambal pedas manis.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/bulungboni.jpeg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Bulung</a></h3>
-                          <p>Rumput laut segar dengan kuah pindang khas.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/gambar5.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Kacang Manis</a></h3>
-                          <p>Perpaduan buah segar dan bumbu kacang lembut.</p>
-                          <p class="price"><span>Rp10.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/gambar_1.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Rujak Campur</a></h3>
-                          <p>Kombinasi buah dan sayur segar dengan bumbu pilihan.</p>
-                          <p class="price"><span>Rp9.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-                  <div class="row">
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/tipatcantok.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Tipat Cantok</a></h3>
-                          <p>Lontong sayur khas Bali dengan bumbu kacang gurih.</p>
-                          <p class="price"><span>Rp10.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4"
-                          style="background-image: url(img/cantok\ lengkap.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Tipat Cantok Telur Ayam</a></h3>
-                          <p>Tipat cantok lezat dengan tambahan telur ayam.</p>
-                          <p class="price"><span>Rp14.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/syrtlrcantok.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Sayur Cantok</a></h3>
-                          <p>Sayur rebus segar disiram bumbu kacang khas.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/sayurcatok.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Sayur Cantok Telur Ayam</a></h3>
-                          <p>Sayur cantok nikmat dengan telur ayam rebus.</p>
-                          <p class="price"><span>Rp12.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4"
-                          style="background-image: url(img/cantok\ lengkap.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Sayur Cantok + Mie Goreng + Telur</a></h3>
-                          <p>Paduan sayur, mie goreng, dan telur spesial.</p>
-                          <p class="price"><span>Rp20.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-                  <div class="row">
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/syrplecing.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Sayur Plecing</a></h3>
-                          <p>Sayur segar dengan sambal plecing khas Bali.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/plecinglur.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Sayur Plecing Telur Ayam</a></h3>
-                          <p>Sayur plecing nikmat dengan tambahan telur ayam.</p>
-                          <p class="price"><span>Rp12.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/bulungboni.jpeg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Bulung Boni</a></h3>
-                          <p>Rumput laut segar dengan kuah pindang pedas.</p>
-                          <p class="price"><span>Rp8.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/bulungctk.jpeg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Bulung Boni Cantok</a></h3>
-                          <p>Bulung boni disiram bumbu kacang gurih pedas.</p>
-                          <p class="price"><span>Rp14.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/tptplecing.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Tipat Plecing</a></h3>
-                          <p>Lontong sayur plecing segar dengan sambal khas.</p>
-                          <p class="price"><span>Rp10.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-                  <div class="row">
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/images.jpeg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Es Extra Joss Susu</a></h3>
-                          <p>Segarnya susu berpadu energi dari Extra Joss.</p>
-                          <p class="price"><span>Rp5.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/esgulabali.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Es Gula</a></h3>
-                          <p>Minuman manis sederhana yang menyegarkan hari Anda.</p>
-                          <p class="price"><span>Rp5.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/esdaluman.jpg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Es Daluman</a></h3>
-                          <p>Cincau hijau khas Bali dengan santan dan gula.</p>
-                          <p class="price"><span>Rp7.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/estape.jpeg);"></a>
-                        <div class="text">
-                          <h3><a href="#">Es Tape</a></h3>
-                          <p>Manis asam segar dari tape ketan hijau.</p>
-                          <p class="price"><span>Rp7.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                      <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(img/essusu.webp);"></a>
-                        <div class="text">
-                          <h3><a href="#">Es Susu</a></h3>
-                          <p>Kesegaran susu dingin yang lembut dan manis.</p>
-                          <p class="price"><span>Rp5.000</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php include 'tab_menu_display.php' ?>
         </div>
+      </div>
   </section>
   <section class="ftco-section img" id="ftco-testimony" style="background-image: url(./img/rujakuahpindangHD.png)"
     data-stellar-background-ratio="0.5">

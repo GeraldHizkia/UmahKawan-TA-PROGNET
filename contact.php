@@ -52,22 +52,22 @@
   <?php require "navbar.php"; ?>
 
 
-  <section class="home-slider owl-carousel">
-
-    <div class="slider-item" style="background-image: url(img/bg2niu.jpg);" data-stellar-background-ratio="0.5">
+  <section class="home-hero">
+    <div class="hero-bg d-flex align-items-center" style="background-image: url(img/bg2niu.jpg);">
       <div class="overlay"></div>
-      <div class="container">
-        <div class="row slider-text justify-content-center align-items-center">
 
-          <div class="col-md-7 col-sm-12 text-center ftco-animate">
-            <h1 class="mb-3 mt-5 bread">Contact Us</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span></p>
-          </div>
+      <div class="container text-center">
+        <h1 class="mb-3 mt-5 bread">Contact Us</h1>
 
-        </div>
+        <p class="breadcrumbs mb-0">
+          <a href="index.php">Home</a>
+          <span class="mx-2">/</span>
+          <span>Contact Us</span>
+        </p>
       </div>
     </div>
   </section>
+
 
   <section class="ftco-section contact-section">
     <div class="container mt-5">

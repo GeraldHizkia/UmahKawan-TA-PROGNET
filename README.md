@@ -150,31 +150,27 @@ This project simulates a full-featured e-commerce website for a local food busin
     (4, 'Drinks', 'Minuman segar pelengkap', 4);
 
 
-    INSERT INTO products (category_id, NAME, DESCRIPTION, price, image_url, is_available, display_order)
-    VALUES
-        (1,'Rujak Kuah Pindang','Segar pedas gurih khas kuah pindang Bali.',8000,'img/rjkkuahpindang.jpg',1,1),
-        (1,'Rujak Gula','Manis asam segar dengan sambal gula merah.',8000,'img/bg2.jpg',1,2),
-        (1,'Rujak Colek','Buah segar dicolek sambal pedas manis.',8000,'img/gambar_1.jpg',1,3),
-        (1,'Rujak Bulung','Rumput laut segar dengan kuah pindang khas.',10000,'img/bulungboni.jpeg',1,4),
-        (1,'Rujak Kacang Manis','Perpaduan buah segar dan bumbu kacang lembut.',10000,'img/gambar4.jpg',1,5),
-
-        (2,'Tipat Cantok','Lontong sayur khas Bali dengan bumbu kacang gurih.',10000,'img/cantok lengkap.jpg',1,1),
-        (2,'Tipat Cantok Telur Ayam','Tipat cantok lezat dengan tambahan telur ayam.',14000,'img/tipat_cantok2.png',1,2),
-        (2,'Sayur Cantok','Sayur rebus segar disiram bumbu kacang khas.',8000,'img/sayurcatok.jpg',1,3),
-        (2,'Sayur Cantok Telur Ayam','Sayur cantok nikmat dengan telur ayam rebus.',12000,'img/syrtlrcantok.jpg',1,4),
-        (2,'Sayur Cantok + Mie Goreng + Telur','Paduan sayur, mie goreng, dan telur spesial.',20000,'img/cantok lengkap.jpg',1,5),
-
-        (3,'Sayur Plecing','Sayur segar dengan sambal plecing khas Bali.',8000,'img/plecinglur.jpg',1,1),
-        (3,'Sayur Plecing Telur Ayam','Sayur plecing nikmat dengan tambahan telur ayam.',12000,'img/syrplecing.jpg',1,2),
-        (3,'Bulung Boni','Rumput laut segar dengan kuah pindang pedas.',8000,'img/bulungboni.jpeg',1,3),
-        (3,'Bulung Boni Cantok','Bulung boni disiram bumbu kacang gurih pedas.',14000,'img/bulungctk.jpeg',1,4),
-        (3,'Tipat Plecing','Lontong sayur plecing segar dengan sambal khas.',10000,'img/tptplecing.jpg',1,5),
-
-        (4,'Es Extra Joss Susu','Segarnya susu berpadu energi dari Extra Joss.',5000,'img/images.jpeg',1,1),
-        (4,'Es Gula','Minuman manis sederhana yang menyegarkan hari Anda.',5000,'img/esgulabali.jpg',1,2),
-        (4,'Es Daluman','Cincau hijau khas Bali dengan santan dan gula.',7000,'img/esdaluman.jpg',1,3),
-        (4,'Es Tape','Tape singkong manis segar berpadu es dingin.',7000,'img/estape.jpeg',1,4),
-        (4,'Es Susu','Kesegaran susu dingin yang lembut dan manis.',6000,'img/essusu.webp',1,5);
+    INSERT  INTO `products`(`id`,`category_id`,`NAME`,`DESCRIPTION`,`price`,`image_url`,`is_available`,`display_order`,`created_at`) VALUES 
+    (1,1,'Rujak Kuah Pindang','Segar pedas gurih khas kuah pindang Bali.',8000.00,'img/rjkkuahpindang.jpg',1,1,'2025-12-23 09:25:30'),
+    (2,1,'Rujak Gula','Manis asam segar dengan sambal gula merah.',8000.00,'img/bg2.jpg',1,2,'2025-12-23 09:25:30'),
+    (3,1,'Rujak Colek','Buah segar dicolek sambal pedas manis.',8000.00,'img/gambar_1.jpg',1,3,'2025-12-23 09:25:30'),
+    (4,1,'Rujak Bulung','Rumput laut segar dengan kuah pindang khas.',10000.00,'img/bulungboni.jpeg',1,4,'2025-12-23 09:25:30'),
+    (5,1,'Rujak Kacang Manis','Perpaduan buah segar dan bumbu kacang lembut.',10000.00,'img/gambar4.jpg',1,5,'2025-12-23 09:25:30'),
+    (6,2,'Tipat Cantok','Lontong sayur khas Bali dengan bumbu kacang gurih.',10000.00,'img/cantok\\ lengkap.jpg',1,1,'2025-12-23 09:25:30'),
+    (7,2,'Tipat Cantok Telur Ayam','Tipat cantok lezat dengan tambahan telur ayam.',14000.00,'img/tipat_cantok2.png',1,2,'2025-12-23 09:25:30'),
+    (8,2,'Sayur Cantok','Sayur rebus segar disiram bumbu kacang khas.',8000.00,'img/sayurcatok.jpg',1,3,'2025-12-23 09:25:30'),
+    (9,2,'Sayur Cantok Telur Ayam','Sayur cantok nikmat dengan telur ayam rebus.',12000.00,'img/syrtlrcantok.jpg',1,4,'2025-12-23 09:25:30'),
+    (10,2,'Sayur Cantok + Mie Goreng + Telur','Paduan sayur, mie goreng, dan telur spesial.',20000.00,'img/cantok\\ lengkap.jpg',1,5,'2025-12-23 09:25:30'),
+    (11,3,'Sayur Plecing','Sayur segar dengan sambal plecing khas Bali.',8000.00,'img/plecinglur.jpg',1,1,'2025-12-23 09:25:30'),
+    (12,3,'Sayur Plecing Telur Ayam','Sayur plecing nikmat dengan tambahan telur ayam.',12000.00,'img/syrplecing.jpg',1,2,'2025-12-23 09:25:30'),
+    (13,3,'Bulung Boni','Rumput laut segar dengan kuah pindang pedas.',8000.00,'img/bulungboni.jpeg',1,3,'2025-12-23 09:25:30'),
+    (14,3,'Bulung Boni Cantok','Bulung boni disiram bumbu kacang gurih pedas.',14000.00,'img/bulungctk.jpeg',1,4,'2025-12-23 09:25:30'),
+    (15,3,'Tipat Plecing','Lontong sayur plecing segar dengan sambal khas.',10000.00,'img/tptplecing.jpg',1,5,'2025-12-23 09:25:30'),
+    (16,4,'Es Extra Joss Susu','Segarnya susu berpadu energi dari Extra Joss.',5000.00,'img/images.jpeg',1,1,'2025-12-23 09:25:30'),
+    (17,4,'Es Gula','Minuman manis sederhana yang menyegarkan hari Anda.',5000.00,'img/esgulabali.jpg',1,2,'2025-12-23 09:25:30'),
+    (18,4,'Es Daluman','Cincau hijau khas Bali dengan santan dan gula.',7000.00,'img/esdaluman.jpg',1,3,'2025-12-23 09:25:30'),
+    (19,4,'Es Tape','Tape singkong manis segar berpadu es dingin.',7000.00,'img/estape.jpeg',1,4,'2025-12-23 09:25:30'),
+    (20,4,'Es Susu','Kesegaran susu dingin yang lembut dan manis.',6000.00,'img/essusu.webp',1,5,'2025-12-23 09:25:30');
 
     ```
 

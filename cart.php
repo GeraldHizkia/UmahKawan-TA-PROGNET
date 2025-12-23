@@ -14,7 +14,7 @@ $subtotal = 0;
 foreach ($_SESSION['cart'] as $item) {
     $subtotal += $item['price'] * $item['quantity'];
 }
-$delivery_fee = $subtotal > 0 ? 5000 : 0;
+$delivery_fee = random_int(5000, 100000); // Biaya antar acak antara 5.000 - 100.000
 $discount = 0;
 $total = $subtotal + $delivery_fee - $discount;
 
@@ -74,22 +74,23 @@ $result_related = mysqli_query($conn, $query_related);
     <?php require "navbar.php"; ?>
 
     <!-- Hero Section -->
-    <section class="home-slider owl-carousel">
-        <div class="slider-item" style="background-image: url(./img/bg-rujak2.png)" data-stellar-background-ratio="0.5">
+
+    <section class="home-hero">
+        <div class="hero-bg d-flex align-items-center" style="background-image: url(img/bg-rujak2.png);">
             <div class="overlay"></div>
-            <div class="container">
-                <div class="row slider-text justify-content-center align-items-center">
-                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
-                        <h1 class="mb-3 mt-5 bread">Cart</h1>
-                        <p class="breadcrumbs">
-                            <span class="mr-2"><a href="index.php">Home</a></span>
-                            <span>Cart</span>
-                        </p>
-                    </div>
-                </div>
+
+            <div class="container text-center">
+                <h1 class="mb-3 mt-5 bread">Cart</h1>
+
+                <p class="breadcrumbs mb-0">
+                    <a href="index.php">Home</a>
+                    <span class="mx-2">/</span>
+                    <span>Cart</span>
+                </p>
             </div>
         </div>
     </section>
+
 
     <?php if (!empty($success_message)): ?>
         <div class="container mt-4">
@@ -139,14 +140,18 @@ $result_related = mysqli_query($conn, $query_related);
                                             </td>
 
                                             <td class="image-prod">
-                                                <div class="img" style="background-image: url(<?php echo htmlspecialchars(getImagePath($item['image_url'])); ?>);"></div>
+                                                <div class="img"
+                                                    style="background-image: url(<?php echo htmlspecialchars(getImagePath($item['image_url'])); ?>);">
+                                                </div>
                                             </td>
 
                                             <td class="product-name">
                                                 <h3><?php echo htmlspecialchars($item['name']); ?></h3>
                                                 <p><?php echo htmlspecialchars($item['spicy_level']); ?></p>
                                                 <?php if (!empty($item['notes'])): ?>
-                                                    <p class="text-muted"><small><?php echo htmlspecialchars($item['notes']); ?></small></p>
+                                                    <p class="text-muted">
+                                                        <small><?php echo htmlspecialchars($item['notes']); ?></small>
+                                                    </p>
                                                 <?php endif; ?>
                                             </td>
 
@@ -154,16 +159,14 @@ $result_related = mysqli_query($conn, $query_related);
 
                                             <td class="quantity">
                                                 <div class="input-group mb-3">
-                                                    <input type="number"
-                                                        name="quantity[<?php echo $cart_item_id; ?>]"
+                                                    <input type="number" name="quantity[<?php echo $cart_item_id; ?>]"
                                                         class="quantity form-control input-number"
-                                                        value="<?php echo $item['quantity']; ?>"
-                                                        min="1"
-                                                        max="100">
+                                                        value="<?php echo $item['quantity']; ?>" min="1" max="100">
                                                 </div>
                                             </td>
 
-                                            <td class="total"><?php echo formatRupiah($item['price'] * $item['quantity']); ?></td>
+                                            <td class="total"><?php echo formatRupiah($item['price'] * $item['quantity']); ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -220,18 +223,20 @@ $result_related = mysqli_query($conn, $query_related);
                 <div class="col-md-7 heading-section ftco-animate text-center">
                     <span class="subheading">Discover</span>
                     <h2 class="mb-4">Related products</h2>
-                    <p>Rujak first, worries later. Somewhere in the heart of Bali, behind the bustling streets and the warm smiles, lives a flavor that speaks without words — sweet, spicy, and unforgettable.</p>
+                    <p>Rujak first, worries later. Somewhere in the heart of Bali, behind the bustling streets and the
+                        warm smiles, lives a flavor that speaks without words — sweet, spicy, and unforgettable.</p>
                 </div>
             </div>
             <div class="row">
                 <?php while ($related = mysqli_fetch_assoc($result_related)): ?>
                     <div class="col-md-3">
                         <div class="menu-entry">
-                            <a href="product-detail.php?id=<?php echo $related['id']; ?>"
-                                class="img"
+                            <a href="product-detail.php?id=<?php echo $related['id']; ?>" class="img"
                                 style="background-image: url(<?php echo htmlspecialchars(getImagePath($related['image_url'])); ?>);"></a>
                             <div class="text text-center pt-4">
-                                <h3><a href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a></h3>
+                                <h3><a
+                                        href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a>
+                                </h3>
                                 <p><?php echo htmlspecialchars($related['description']); ?></p>
                                 <p class="price"><span><?php echo formatRupiah($related['price']); ?></span></p>
                                 <p>
@@ -266,9 +271,9 @@ $result_related = mysqli_query($conn, $query_related);
     <script src="js/main.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Auto update saat quantity berubah
-            $('.quantity').on('change', function() {
+            $('.quantity').on('change', function () {
                 var $input = $(this);
                 var cartItemId = $input.attr('name').match(/\[(.*?)\]/)[1];
                 var quantity = parseInt($input.val());
@@ -285,11 +290,11 @@ $result_related = mysqli_query($conn, $query_related);
 
             // Update dengan debounce untuk performa lebih baik
             var updateTimeout;
-            $('.quantity').on('input', function() {
+            $('.quantity').on('input', function () {
                 var $input = $(this);
                 clearTimeout(updateTimeout);
 
-                updateTimeout = setTimeout(function() {
+                updateTimeout = setTimeout(function () {
                     $input.trigger('change');
                 }, 800); // Update setelah 800ms user berhenti mengetik
             });
@@ -308,7 +313,7 @@ $result_related = mysqli_query($conn, $query_related);
                     quantity: quantity
                 },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         // Update item total
                         $row.find('.total').text(response.item_total);
@@ -334,7 +339,7 @@ $result_related = mysqli_query($conn, $query_related);
                         $row.css('opacity', '1');
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Terjadi kesalahan saat mengupdate keranjang');
                     $row.css('opacity', '1');
                 }
@@ -361,7 +366,7 @@ $result_related = mysqli_query($conn, $query_related);
                             cart_item_id: cartItemId
                         },
                         dataType: 'json',
-                        success: function(response) {
+                        success: function (response) {
                             if (response.success) {
                                 Swal.fire({
                                     icon: 'success',
@@ -380,7 +385,7 @@ $result_related = mysqli_query($conn, $query_related);
                                 });
                             }
                         },
-                        error: function() {
+                        error: function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error!',

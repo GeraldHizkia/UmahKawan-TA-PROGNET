@@ -64,15 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 mysqli_stmt_close($stmt);
                 mysqli_close($conn);
 
-                // Redirect ke halaman sebelumnya atau menu
-                $redirect_url = $_SERVER['HTTP_REFERER'] ?? 'menu.php';
 
-                // Pastikan tidak redirect ke add-to-cart.php sendiri
-                if (strpos($redirect_url, 'add-to-cart.php') !== false) {
-                    $redirect_url = 'menu.php';
-                }
 
-                header('Location: ' . $redirect_url);
+                header('Location: menu.php');
                 exit();
             }
         }

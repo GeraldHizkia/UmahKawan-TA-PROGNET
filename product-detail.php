@@ -48,7 +48,7 @@ $result_related = mysqli_stmt_get_result($stmt_related);
 <html lang="id">
 
 <head>
-    <title><?php echo htmlspecialchars($product['name']); ?> - UmahKawan</title>
+    <title><?php echo htmlspecialchars($product['NAME']); ?> - UmahKawan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -66,6 +66,7 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <style>
         .product-image {
             width: 100%;
@@ -86,22 +87,24 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <?php require "navbar.php"; ?>
 
 
-    <section class="home-slider owl-carousel">
-        <div class="slider-item" style="background-image: url(img/Landing\ Page.jpg);" data-stellar-background-ratio="0.5">
+
+    <section class="home-hero">
+        <div class="hero-bg d-flex align-items-center" style="background-image: url(img/Landing\ Page.jpg);">
             <div class="overlay"></div>
-            <div class="container">
-                <div class="row slider-text justify-content-center align-items-center">
-                    <div class="col-md-7 col-sm-12 text-center ftco-animate">
-                        <h1 class="mb-3 mt-5 bread">Product Detail</h1>
-                        <p class="breadcrumbs">
-                            <span class="mr-2"><a href="index.php">Home</a></span>
-                            <span>Product Detail</span>
-                        </p>
-                    </div>
-                </div>
+
+            <div class="container text-center">
+                <h1 class="mb-3 mt-5 bread">Detail Product</h1>
+
+                <p class="breadcrumbs mb-0">
+                    <a href="index.php">Home</a>
+                    <span class="mx-2">/</span>
+                    <span>Product Detail</span>
+                </p>
             </div>
         </div>
     </section>
+
+
 
     <section class="ftco-section" id="product">
         <div class="container">
@@ -109,24 +112,24 @@ $result_related = mysqli_stmt_get_result($stmt_related);
                 <div class="col-lg-7 mb-5 ftco-animate">
                     <a href="<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>" class="image-popup">
                         <img src="<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>"
-                            class="img-fluid product-image"
-                            alt="<?php echo htmlspecialchars($product['name']); ?>">
+                            class="img-fluid product-image" alt="<?php echo htmlspecialchars($product['NAME']); ?>">
                     </a>
                 </div>
                 <div class="col-lg-5 product-details pl-md-5 ftco-animate">
-                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                    <h3><?php echo htmlspecialchars($product['NAME']); ?></h3>
                     <p class="price"><span><?php echo formatRupiah($product['price']); ?></span></p>
-                    <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($product['DESCRIPTION'])); ?></p>
 
                     <form action="add-to-cart.php" method="POST" id="orderForm">
                         <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                        <input type="hidden" name="product_name"
+                            value="<?php echo htmlspecialchars($product['NAME']); ?>">
                         <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
 
                         <div class="row mt-4">
                             <div class="col-md-6">
                                 <div class="form-group d-flex">
-                                    <div class="select-wrap">
+                                    <div class="select-wrap" <?= $product['category_id'] == 4 ? 'style="display:none;"' : '' ?>>
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="spicy_level" class="form-control">
                                             <option value="No Spicy">No Spicy</option>
@@ -144,7 +147,8 @@ $result_related = mysqli_stmt_get_result($stmt_related);
                                         <i class="icon-minus"></i>
                                     </button>
                                 </span>
-                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number"
+                                    value="1" min="1" max="100">
                                 <span class="input-group-btn ml-2">
                                     <button type="button" class="quantity-right-plus btn" data-type="plus">
                                         <i class="icon-plus"></i>
@@ -153,10 +157,10 @@ $result_related = mysqli_stmt_get_result($stmt_related);
                             </div>
                         </div>
                         <p>
-                            <button type="submit" name="action" value="add_to_cart" class="btn btn-primary py-3 px-5">
+                            <button type="submit" name="action" value="add_to_cart" class="btn btn-cart py-3 px-5">
                                 <i class="icon-shopping_cart"></i> Add to Cart
                             </button>
-                            <button type="submit" name="action" value="buy_now" class="btn btn-success py-3 px-5 ml-2">
+                            <button type="submit" name="action" value="buy_now" class="btn btn-buy py-3 px-5 ml-2">
                                 <i class="icon-credit-card"></i> Beli Sekarang
                             </button>
                         </p>
@@ -172,21 +176,24 @@ $result_related = mysqli_stmt_get_result($stmt_related);
                 <div class="col-md-7 heading-section ftco-animate text-center">
                     <span class="subheading">Discover</span>
                     <h2 class="mb-4">Related products</h2>
-                    <p>Rujak first, worries later. Somewhere in the heart of Bali, behind the bustling streets and the warm smiles, lives a flavor that speaks without words — sweet, spicy, and unforgettable.</p>
+                    <p>Rujak first, worries later. Somewhere in the heart of Bali, behind the bustling streets and the
+                        warm smiles, lives a flavor that speaks without words — sweet, spicy, and unforgettable.</p>
                 </div>
             </div>
             <div class="row">
                 <?php while ($related = mysqli_fetch_assoc($result_related)): ?>
                     <div class="col-md-3">
                         <div class="menu-entry">
-                            <a href="product-detail.php?id=<?php echo $related['id']; ?>"
-                                class="img"
+                            <a href="product-detail.php?id=<?php echo $related['id']; ?>" class="img"
                                 style="background-image: url(<?php echo htmlspecialchars(getImagePath($related['image_url'])); ?>);"></a>
                             <div class="text text-center pt-4">
-                                <h3><a href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a></h3>
+                                <h3><a
+                                        href="product-detail.php?id=<?php echo $related['id']; ?>"><?php echo htmlspecialchars($related['name']); ?></a>
+                                </h3>
                                 <p><?php echo htmlspecialchars($related['description']); ?></p>
                                 <p class="price"><span><?php echo formatRupiah($related['price']); ?></span></p>
-                                <p><a href="product-detail.php?id=<?php echo $related['id']; ?>" class="btn btn-primary btn-outline-primary">View Detail</a></p>
+                                <p><a href="product-detail.php?id=<?php echo $related['id']; ?>"
+                                        class="btn btn-primary btn-outline-primary">View Detail</a></p>
                             </div>
                         </div>
                     </div>
@@ -213,26 +220,10 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <script src="js/main.js"></script>
 
     <script>
-        $(document).ready(function() {
-            var quantitiy = 0;
-            $('.quantity-right-plus').click(function(e) {
-                e.preventDefault();
-                var quantity = parseInt($('#quantity').val());
-                $('#quantity').val(quantity + 1);
-            });
 
-            $('.quantity-left-minus').click(function(e) {
-                e.preventDefault();
-                var quantity = parseInt($('#quantity').val());
-                if (quantity > 1) {
-                    $('#quantity').val(quantity - 1);
-                }
-            });
-        });
-
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Auto scroll ke section product setelah 1 detik
-            setTimeout(function() {
+            setTimeout(function () {
                 $('html, body').animate({
                     scrollTop: $('#product').offset().top - 50 // -80 untuk offset navbar
                 }, 300); // 800ms durasi animasi scroll
@@ -240,13 +231,14 @@ $result_related = mysqli_stmt_get_result($stmt_related);
 
             // Quantity buttons handler
             var quantitiy = 0;
-            $('.quantity-right-plus').click(function(e) {
+            $('.quantity-right-plus').click(function (e) {
                 e.preventDefault();
                 var quantity = parseInt($('#quantity').val());
                 $('#quantity').val(quantity + 1);
+                // console.log($('#quantity').val())
             });
 
-            $('.quantity-left-minus').click(function(e) {
+            $('.quantity-left-minus').click(function (e) {
                 e.preventDefault();
                 var quantity = parseInt($('#quantity').val());
                 if (quantity > 1) {

@@ -127,19 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <title>UmahKawan</title>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Great+Vibes"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="css/animate.css" />
@@ -160,23 +152,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <?php require "navbar.php"; ?>
 
-  <section class="home-slider owl-carousel">
-    <div
-      class="slider-item"
-      style="background-image: url(img/bg_packaging.png)"
-      data-stellar-background-ratio="0.5">
+
+  <section class="home-hero">
+    <div class="hero-bg d-flex align-items-center" style="background-image: url(img/bg_packaging.png);">
       <div class="overlay"></div>
-      <div class="container">
-        <div
-          class="row slider-text justify-content-center align-items-center">
-          <div class="col-md-7 col-sm-12 text-center ftco-animate">
-            <h1 class="mb-3 mt-5 bread">Checkout</h1>
-            <p class="breadcrumbs">
-              <span class="mr-2"><a href="index.html">Home</a></span>
-              <span>Checout</span>
-            </p>
-          </div>
-        </div>
+
+      <div class="container text-center">
+        <h1 class="mb-3 mt-5 bread">Checkout</h1>
+
+        <p class="breadcrumbs mb-0">
+          <a href="index.php">Home</a>
+          <span class="mx-2">/</span>
+          <span>Checkout</span>
+        </p>
       </div>
     </div>
   </section>
@@ -230,7 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="notes">Catatan Pesanan (Opsional)</label>
-                    <textarea name="notes" id="notes" rows="2" class="form-control" placeholder="Contoh: Mohon hubungi sebelum antar"></textarea>
+                    <textarea name="notes" id="notes" rows="2" class="form-control"
+                      placeholder="Contoh: Mohon hubungi sebelum antar"></textarea>
                   </div>
                 </div>
               </div>
@@ -240,10 +229,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h5 class="mb-3">Atau Pilih Alamat Tersimpan:</h5>
                 <?php foreach ($addresses as $address): ?>
                   <div class="custom-control custom-radio mb-3">
-                    <input type="radio" id="addr_<?php echo $address['id']; ?>"
-                      name="saved_address_id" value="<?php echo $address['id']; ?>"
-                      class="custom-control-input"
-                      <?php echo $address['is_default'] ? 'checked' : ''; ?>>
+                    <input type="radio" id="addr_<?php echo $address['id']; ?>" name="saved_address_id"
+                      value="<?php echo $address['id']; ?>" class="custom-control-input" <?php echo $address['is_default'] ? 'checked' : ''; ?>>
                     <label class="custom-control-label" for="addr_<?php echo $address['id']; ?>">
                       <strong><?php echo htmlspecialchars($address['label']); ?></strong><br>
                       <small>
@@ -284,8 +271,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <h3 class="mb-4">Metode Pembayaran</h3>
 
               <div class="custom-control custom-radio mb-3">
-                <input type="radio" id="payment_cash" name="payment_method" value="cash"
-                  class="custom-control-input" checked>
+                <input type="radio" id="payment_cash" name="payment_method" value="cash" class="custom-control-input"
+                  checked>
                 <label class="custom-control-label" for="payment_cash">
                   💵 Cash on Delivery (COD)
                 </label>
@@ -300,8 +287,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               </div>
 
               <div class="custom-control custom-radio mb-4">
-                <input type="radio" id="payment_qris" name="payment_method" value="qris"
-                  class="custom-control-input">
+                <input type="radio" id="payment_qris" name="payment_method" value="qris" class="custom-control-input">
                 <label class="custom-control-label" for="payment_qris">
                   📱 QRIS
                 </label>
@@ -401,7 +387,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Auto-fill dari alamat tersimpan
     document.querySelectorAll('input[name="saved_address_id"]').forEach(radio => {
-      radio.addEventListener('change', function() {
+      radio.addEventListener('change', function () {
         if (this.checked) {
           // Ambil data dari label
           const label = this.parentElement.querySelector('label');
@@ -420,7 +406,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Re-enable manual input jika user mulai mengetik
     ['name', 'phone', 'address'].forEach(id => {
-      document.getElementById(id).addEventListener('focus', function() {
+      document.getElementById(id).addEventListener('focus', function () {
         document.querySelectorAll('input[name="saved_address_id"]').forEach(r => r.checked = false);
         this.disabled = false;
       });
@@ -428,9 +414,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       var quantitiy = 0;
-      $(".quantity-right-plus").click(function(e) {
+      $(".quantity-right-plus").click(function (e) {
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -443,7 +429,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Increment
       });
 
-      $(".quantity-left-minus").click(function(e) {
+      $(".quantity-left-minus").click(function (e) {
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
