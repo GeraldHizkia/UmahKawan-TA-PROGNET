@@ -119,21 +119,21 @@ if (isset($_SESSION['cart_action'])):
     if ($action == 'add_to_cart' && isset($_SESSION['cart_message'])):
         $message = $_SESSION['cart_message'];
         $product_name = $_SESSION['cart_product_name'] ?? '';
-?>
+        ?>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil!',
                     showConfirmButton: false,
                     toast: true,
                     position: 'top-end',
-                    timer: 3000,
+                    timer: 1500,
                     timerProgressBar: true,
                 })
             });
         </script>
-    <?php
+        <?php
     endif;
 
     // Clear session messages
@@ -147,7 +147,7 @@ if (isset($_SESSION['success_message'])):
     $success_msg = $_SESSION['success_message'];
     ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -159,16 +159,16 @@ if (isset($_SESSION['success_message'])):
             });
         });
     </script>
-<?php
+    <?php
     unset($_SESSION['success_message']);
 endif;
 
 // Error message
 if (isset($_SESSION['error_message'])):
     $error_msg = $_SESSION['error_message'];
-?>
+    ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -177,7 +177,7 @@ if (isset($_SESSION['error_message'])):
             });
         });
     </script>
-<?php
+    <?php
     unset($_SESSION['error_message']);
 endif;
 ?>

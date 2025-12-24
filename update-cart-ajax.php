@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Hitung jumlah unique items (bukan total quantity)
             $cart_count = count($_SESSION['cart']);
 
-            $delivery_fee = $subtotal > 0 ? 5000 : 0;
+            // Regenerate delivery fee setiap ada perubahan quantity
+            $delivery_fee = $subtotal > 0 ? random_int(5000, 50000) : 0;
             $discount = 0;
             $total = $subtotal + $delivery_fee - $discount;
 

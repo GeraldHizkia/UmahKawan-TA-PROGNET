@@ -67,6 +67,227 @@ $result_related = mysqli_query($conn, $query_related);
         .quantity {
             text-align: center;
         }
+
+        /* Dark Gold Luxury Theme - Cart Items Only */
+        .cart-item-wrapper {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(196, 155, 99, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-wrapper:hover {
+            border-color: rgba(196, 155, 99, 0.4);
+            box-shadow: 0 8px 24px rgba(196, 155, 99, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 20px;
+            gap: 18px;
+            position: relative;
+        }
+
+        .cart-item.updating {
+            opacity: 0.6;
+        }
+
+        /* Product Image */
+        .item-image {
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid rgba(196, 155, 99, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(196, 155, 99, 0.1) 100%);
+        }
+
+        /* Product Info */
+        .item-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .item-name {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .item-variant {
+            font-size: 13px;
+            color: #c49b63;
+            margin-bottom: 6px;
+            font-weight: 400;
+        }
+
+        .item-notes {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+            margin-top: 4px;
+            padding: 6px 10px;
+            background: rgba(196, 155, 99, 0.05);
+            border-radius: 4px;
+            border-left: 2px solid #c49b63;
+        }
+
+        /* Price and Quantity Row */
+        .item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(196, 155, 99, 0.15);
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c49b63;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quantity Control - Luxury Minimalist */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(196, 155, 99, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-control button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            color: #c49b63;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+        }
+
+        .quantity-control button:hover:not(:disabled) {
+            background: rgba(196, 155, 99, 0.15);
+            color: #d4af6a;
+        }
+
+        .quantity-control button:disabled {
+            color: #555;
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
+
+        .quantity-control input {
+            width: 50px;
+            height: 36px;
+            border: none;
+            border-left: 1px solid rgba(196, 155, 99, 0.2);
+            border-right: 1px solid rgba(196, 155, 99, 0.2);
+            background: transparent;
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Delete Button */
+        .item-delete {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(196, 155, 99, 0.2);
+            color: #888;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+            line-height: 1;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .item-delete:hover {
+            background: rgba(220, 53, 69, 0.15);
+            border-color: rgba(220, 53, 69, 0.4);
+            color: #dc3545;
+            transform: rotate(90deg);
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 576px) {
+            .item-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .item-name {
+                font-size: 14px;
+            }
+
+            .item-price {
+                font-size: 16px;
+            }
+
+            .quantity-control button {
+                width: 32px;
+                height: 32px;
+            }
+
+            .quantity-control input {
+                width: 45px;
+                height: 32px;
+            }
+
+            .cart-item {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .item-bottom {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .quantity-control {
+                justify-content: center;
+            }
+
+            .item-price {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
@@ -101,120 +322,107 @@ $result_related = mysqli_query($conn, $query_related);
         </div>
     <?php endif; ?>
 
-    <!-- Cart Section -->
-    <section class="ftco-section ftco-cart">
-        <div class="container">
-            <?php if (empty($_SESSION['cart'])): ?>
-                <!-- Empty Cart -->
-                <div class="row justify-content-center">
-                    <div class="col-md-6 text-center ftco-animate">
-                        <p style="font-size: 80px; color: #ccc;">🛒</p>
-                        <h3>Keranjang Anda Kosong</h3>
-                        <p class="text-muted">Belum ada produk di keranjang. Yuk mulai belanja!</p>
-                        <a href="menu.php" class="btn btn-primary btn-lg mt-3">Lihat Menu</a>
-                    </div>
+
+    <!-- Cart Content -->
+    <div class="container mt-3 cart-content">
+        <?php if (empty($_SESSION['cart'])): ?>
+            <!-- Empty Cart -->
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <h3>Keranjang Anda Kosong</h3>
+                <p>Yuk, isi dengan produk pilihan Anda!</p>
+                <a href="menu.php" class="btn btn-primary">Mulai Belanja</a>
+            </div>
+        <?php else: ?>
+            <!-- Continue Shopping Button -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <a href="menu.php" class="btn btn-outline-primary">
+                        <span class="icon-arrow-left"></span> Continue Shopping
+                    </a>
                 </div>
-            <?php else: ?>
-                <div class="row">
-                    <div class="col-md-12 ftco-animate">
-                        <div class="cart-list">
-                            <table class="table">
-                                <thead class="thead-primary">
-                                    <tr class="text-center">
-                                        <th>&nbsp;</th>
-                                        <th>&nbsp;</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($_SESSION['cart'] as $cart_item_id => $item): ?>
-                                        <tr class="text-center">
-                                            <td class="product-remove">
-                                                <button type="button" class="btn btn-link text-danger"
-                                                    onclick="removeItem('<?php echo $cart_item_id; ?>')">
-                                                    <span class="icon-close"></span>
-                                                </button>
-                                            </td>
+            </div>
 
-                                            <td class="image-prod">
-                                                <div class="img"
-                                                    style="background-image: url(<?php echo htmlspecialchars(getImagePath($item['image_url'])); ?>);">
-                                                </div>
-                                            </td>
+            <div class="row">
+                <!-- Cart Items -->
+                <div class="col-lg-8 col-md-12">
+                    <?php foreach ($_SESSION['cart'] as $cart_item_id => $item): ?>
+                        <div class="cart-item-wrapper ftco-animate" data-cart-id="<?php echo $cart_item_id; ?>">
+                            <div class="cart-item">
+                                <!-- Delete Button -->
+                                <button type="button" class="item-delete" onclick="removeItem('<?php echo $cart_item_id; ?>')">
+                                    <span class="icon-close"></span>
+                                </button>
 
-                                            <td class="product-name">
-                                                <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-                                                <p><?php echo htmlspecialchars($item['spicy_level']); ?></p>
-                                                <?php if (!empty($item['notes'])): ?>
-                                                    <p class="text-muted">
-                                                        <small><?php echo htmlspecialchars($item['notes']); ?></small>
-                                                    </p>
-                                                <?php endif; ?>
-                                            </td>
+                                <!-- Product Image -->
+                                <div class="item-image"
+                                    style="background-image: url(<?php echo htmlspecialchars(getImagePath($item['image_url'])); ?>);">
+                                </div>
 
-                                            <td class="price"><?php echo formatRupiah($item['price']); ?></td>
+                                <!-- Product Info -->
+                                <div class="item-info">
+                                    <div>
+                                        <div class="item-name"><?php echo htmlspecialchars($item['name']); ?></div>
+                                        <div class="item-variant"><?php echo htmlspecialchars($item['spicy_level']); ?>
+                                        </div>
+                                        <?php if (!empty($item['notes'])): ?>
+                                            <div class="item-notes"><?php echo htmlspecialchars($item['notes']); ?></div>
+                                        <?php endif; ?>
+                                    </div>
 
-                                            <td class="quantity">
-                                                <div class="input-group mb-3">
-                                                    <input type="number" name="quantity[<?php echo $cart_item_id; ?>]"
-                                                        class="quantity form-control input-number"
-                                                        value="<?php echo $item['quantity']; ?>" min="1" max="100">
-                                                </div>
-                                            </td>
+                                    <div class="item-bottom">
+                                        <div class="item-price"><?php echo formatRupiah($item['price']); ?></div>
 
-                                            <td class="total"><?php echo formatRupiah($item['price'] * $item['quantity']); ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <a href="menu.php" class="btn btn-outline-primary">
-                                    <span class="icon-arrow-left"></span> Continue Shopping
-                                </a>
+                                        <div class="quantity-control">
+                                            <button type="button" onclick="updateQuantity('<?php echo $cart_item_id; ?>', -1)"
+                                                <?php echo $item['quantity'] <= 1 ? 'disabled' : ''; ?>>
+                                                −
+                                            </button>
+                                            <input type="number" value="<?php echo $item['quantity']; ?>" readonly>
+                                            <button type="button" onclick="updateQuantity('<?php echo $cart_item_id; ?>', 1)"
+                                                <?php echo $item['quantity'] >= 100 ? 'disabled' : ''; ?>>
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <div class="row justify-content-end">
-                    <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
-                        <div class="cart-total mb-3">
-                            <h3>Cart Totals</h3>
+                <!-- Cart Summary (Original) -->
+                <div class="col-lg-4 col-md-12 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Cart Totals</h3>
+                        <p class="d-flex">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal"><?php echo formatRupiah($subtotal); ?></span>
+                        </p>
+                        <p class="d-flex">
+                            <span>Delivery</span>
+                            <span id="summary-delivery"><?php echo formatRupiah($delivery_fee); ?></span>
+                        </p>
+                        <?php if ($discount > 0): ?>
                             <p class="d-flex">
-                                <span>Subtotal</span>
-                                <span><?php echo formatRupiah($subtotal); ?></span>
+                                <span>Discount</span>
+                                <span id="summary-discount"><?php echo formatRupiah($discount); ?></span>
                             </p>
-                            <p class="d-flex">
-                                <span>Delivery</span>
-                                <span><?php echo formatRupiah($delivery_fee); ?></span>
-                            </p>
-                            <?php if ($discount > 0): ?>
-                                <p class="d-flex">
-                                    <span>Discount</span>
-                                    <span><?php echo formatRupiah($discount); ?></span>
-                                </p>
-                            <?php endif; ?>
-                            <hr>
-                            <p class="d-flex total-price">
-                                <span>Total</span>
-                                <span><?php echo formatRupiah($total); ?></span>
-                            </p>
-                        </div>
-                        <p class="text-center">
-                            <a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+                        <?php endif; ?>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span id="summary-total"><?php echo formatRupiah($total); ?></span>
                         </p>
                     </div>
+                    <p class="text-center">
+                        <a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+                    </p>
                 </div>
-            <?php endif; ?>
-        </div>
-    </section>
+            </div>
+        <?php endif; ?>
+    </div>
+
 
     <!-- Related Products -->
     <section class="ftco-section">
@@ -271,6 +479,39 @@ $result_related = mysqli_query($conn, $query_related);
     <script src="js/main.js"></script>
 
     <script>
+        function updateQuantity(cartItemId, change) {
+            var $wrapper = $('.cart-item-wrapper[data-cart-id="' + cartItemId + '"]');
+            var $input = $wrapper.find('input[type="number"]');
+            var currentQty = parseInt($input.val());
+            var newQty = currentQty + change;
+
+            if (newQty < 1 || newQty > 100) return;
+
+            $input.val(newQty);
+            updateCart(cartItemId, newQty, $wrapper);
+        }
+
+        function updateButtonStates(cartItemId, quantity) {
+            var $wrapper = $('.cart-item-wrapper[data-cart-id="' + cartItemId + '"]');
+            var $buttons = $wrapper.find('.quantity-control button');
+            var $minusBtn = $buttons.eq(0);
+            var $plusBtn = $buttons.eq(1);
+
+            // Update minus button
+            if (quantity <= 1) {
+                $minusBtn.prop('disabled', true);
+            } else {
+                $minusBtn.prop('disabled', false);
+            }
+
+            // Update plus button
+            if (quantity >= 100) {
+                $plusBtn.prop('disabled', true);
+            } else {
+                $plusBtn.prop('disabled', false);
+            }
+        }
+
         $(document).ready(function () {
             // Auto update saat quantity berubah
             $('.quantity').on('change', function () {
@@ -302,8 +543,8 @@ $result_related = mysqli_query($conn, $query_related);
 
         function updateCart(cartItemId, quantity, $input) {
             // Show loading indicator
-            var $row = $input.closest('tr');
-            $row.css('opacity', '0.6');
+            var $wrapper = $input.closest('.cart-item-wrapper');
+            $wrapper.css('opacity', '0.6');
 
             $.ajax({
                 url: 'update-cart-ajax.php',
@@ -315,13 +556,13 @@ $result_related = mysqli_query($conn, $query_related);
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
-                        // Update item total
-                        $row.find('.total').text(response.item_total);
-
                         // Update cart totals
-                        $('.cart-total .d-flex:eq(0) span:last').text(response.subtotal);
-                        $('.cart-total .d-flex:eq(1) span:last').text(response.delivery);
-                        $('.cart-total .total-price span:last').text(response.total);
+                        $('#summary-subtotal').text(response.subtotal);
+                        $('#summary-delivery').text(response.delivery);
+                        $('#summary-total').text(response.total);
+
+                        // Update button states berdasarkan quantity baru
+                        updateButtonStates(cartItemId, quantity);
 
                         // Update cart counter di navbar
                         if (response.cart_count > 0) {
@@ -331,17 +572,16 @@ $result_related = mysqli_query($conn, $query_related);
                         }
 
                         // Show success animation
-                        $row.css('opacity', '1');
-
+                        $wrapper.css('opacity', '1');
 
                     } else {
                         alert('Gagal update keranjang: ' + (response.message || 'Unknown error'));
-                        $row.css('opacity', '1');
+                        $wrapper.css('opacity', '1');
                     }
                 },
                 error: function () {
                     alert('Terjadi kesalahan saat mengupdate keranjang');
-                    $row.css('opacity', '1');
+                    $wrapper.css('opacity', '1');
                 }
             });
         }

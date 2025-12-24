@@ -68,18 +68,7 @@ $result_related = mysqli_stmt_get_result($stmt_related);
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <style>
-        .product-image {
-            width: 100%;
-            height: 560px;
-            object-fit: contain;
-            display: block;
-        }
 
-        @media (max-width:767px) {
-            .product-image {
-                height: auto;
-            }
-        }
     </style>
 </head>
 

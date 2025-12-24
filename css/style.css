@@ -22,6 +22,32 @@
   overflow: hidden;
 }
 
+.product-image {
+  width: 100%;
+  height: 560px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width:767px) {
+  .product-image {
+    height: auto;
+  }
+
+  /* Stack Add to Cart and Buy Now buttons vertically on small screens */
+  .product-details .btn-cart,
+  .product-details .btn-buy {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: 10px;
+  }
+
+  .product-details .btn-buy {
+    margin-bottom: 0;
+  }
+}
+
 /* Base Button */
 .btn-cart,
 .btn-buy {
