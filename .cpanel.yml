@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/umahkawa/public_html/umah-kawan
+    - export DEPLOYPATH=/home/umahkawa/public_html/
     - /bin/cp -R * $DEPLOYPATH
