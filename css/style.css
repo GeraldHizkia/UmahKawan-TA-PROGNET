@@ -11080,6 +11080,30 @@ h5,
   color: #c49b63;
 }
 
+/* Mobile touch/scroll fix for Owl Carousel
+   Allow vertical panning so the page can scroll when swiping inside the slider.
+   Also reduce/allow automatic height on small screens so content below becomes reachable. */
+.owl-carousel .owl-stage,
+.owl-carousel .owl-stage .owl-item {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+}
+
+.owl-carousel.owl-drag .owl-item {
+  -ms-touch-action: pan-y !important;
+  touch-action: pan-y !important;
+}
+
+@media (max-width: 767.98px) {
+
+  .owl-carousel.home-slider,
+  .owl-carousel.home-slider .slider-item,
+  .owl-carousel.home-slider .slider-item .slider-text {
+    height: auto !important;
+    min-height: 300px;
+  }
+}
+
 .owl-carousel.home-slider .slider-item .slider-text h1 {
   text-transform: uppercase;
   font-size: 40px;
