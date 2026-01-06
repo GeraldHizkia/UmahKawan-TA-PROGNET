@@ -14,7 +14,11 @@ $subtotal = 0;
 foreach ($_SESSION['cart'] as $item) {
     $subtotal += $item['price'] * $item['quantity'];
 }
-$delivery_fee = random_int(5000, 100000); // Biaya antar acak antara 5.000 - 100.000
+// Set delivery fee in session if not already set
+if (!isset($_SESSION['delivery_fee'])) {
+    $_SESSION['delivery_fee'] = random_int(5000, 100000);
+}
+$delivery_fee = $_SESSION['delivery_fee'];
 $discount = 0;
 $total = $subtotal + $delivery_fee - $discount;
 

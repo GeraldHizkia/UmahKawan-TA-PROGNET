@@ -33,7 +33,7 @@ $subtotal = 0;
 foreach ($_SESSION['cart'] as $item) {
   $subtotal += $item['price'] * $item['quantity'];
 }
-$delivery_fee = 5000;
+$delivery_fee = $_SESSION['delivery_fee'];
 $total = $subtotal + $delivery_fee;
 
 // Handle form submission
