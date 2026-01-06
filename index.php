@@ -316,69 +316,41 @@ include "functions.php"
           </p>
         </div>
       </div>
+      <?php
+      $query_products = "SELECT id, name, description, price, image_url FROM products ORDER BY RAND() LIMIT 4";
+      $result_products = mysqli_query($conn, $query_products);
+      ?>
       <div class="row">
-        <div class="col-md-3">
-          <div class="menu-entry">
-            <a href="#" class="img" style="background-image: url(./img/rujakuahpindangHD.png)"></a>
-            <div class="text text-center pt-4">
-              <h3><a href="./product-single.php">Rujak Kuah Pindang</a></h3>
-              <p>
-                Segar pedas gurih khas kuah pindang Bali.
-              </p>
-              <p class="price"><span>Rp8.000</span></p>
-              <p>
-                <a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="menu-entry">
-            <a href="#" class="img" style="background-image: url(./img/tipat_cantok2.png)"></a>
-            <div class="text text-center pt-4">
-              <h3><a href="#">Tipat Cantok</a></h3>
-              <p>
-                Lontong sayur khas Bali dengan bumbu kacang gurih.
+        <?php while ($product = mysqli_fetch_assoc($result_products)): ?>
+          <div class="col-md-3">
+            <div class="menu-entry">
+              <a href="product-single.php?id=<?php echo $product['id']; ?>" class="img"
+                style="background-image: url(<?php echo htmlspecialchars(getImagePath($product['image_url'])); ?>)"></a>
+              <div class="text text-center pt-4">
+                <h3><a
+                    href="product-single.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['name']); ?></a>
+                </h3>
+                <p><?php echo htmlspecialchars($product['description']); ?></p>
+                <p class="price"><span><?php echo formatRupiah($product['price']); ?></span></p>
+                <p>
+                  <!-- Dengan ini: -->
+                <form action="add-to-cart.php" method="POST" style="display: inline;">
+                  <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                  <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                  <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                  <input type="hidden" name="spicy_level" value="No Spicy">
+                  <input type="hidden" name="quantity" value="1">
+                  <input type="hidden" name="action" value="add_to_cart">
 
-              </p>
-              <p class="price"><span>Rp10.000</span></p>
-              <p>
-                <a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-              </p>
+                  <button type="submit" class="btn btn-primary btn-outline-primary">
+                    <i class="icon-shopping_cart"></i> Add to Cart
+                  </button>
+                </form>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="menu-entry">
-            <a href="#" class="img" style="background-image: url(./img/bulungboni.jpeg)"></a>
-            <div class="text text-center pt-4">
-              <h3><a href="#">Bulung Boni Cantok</a></h3>
-              <p>
-                Bulung boni disiram bumbu kacang gurih pedas.
-
-              </p>
-              <p class="price"><span>Rp14.000</span></p>
-              <p>
-                <a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="menu-entry">
-            <a href="#" class="img" style="background-image: url(./img/images.jpeg)"></a>
-            <div class="text text-center pt-4">
-              <h3><a href="#">Es Extra Joss Susu</a></h3>
-              <p>
-                Segarnya susu berpadu energi dari Extra Joss.
-              </p>
-              <p class="price"><span>Rp5.000</span></p>
-              <p>
-                <a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-              </p>
-            </div>
-          </div>
-        </div>
+        <?php endwhile; ?>
       </div>
     </div>
   </section>
