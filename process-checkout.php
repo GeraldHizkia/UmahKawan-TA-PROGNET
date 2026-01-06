@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ================= DATA FORM =================
-$customer_name    = trim($_POST['name'] ?? '');
-$customer_phone   = trim($_POST['phone'] ?? '');
-$customer_email   = trim($_POST['email'] ?? '');
+$customer_name = trim($_POST['name'] ?? '');
+$customer_phone = trim($_POST['phone'] ?? '');
+$customer_email = trim($_POST['email'] ?? '');
 $customer_address = trim($_POST['address'] ?? '');
-$customer_city    = trim($_POST['city'] ?? 'Denpasar');
-$postal_code      = trim($_POST['postal_code'] ?? '');
-$notes            = trim($_POST['notes'] ?? '');
+$customer_city = trim($_POST['city'] ?? 'Denpasar');
+$postal_code = trim($_POST['postal_code'] ?? '');
+$notes = trim($_POST['notes'] ?? '');
 
 // Payment
 $payment_method = $_POST['payment_method'] ?? 'cash';
@@ -34,9 +34,12 @@ if (!in_array($payment_method, $valid_payment_methods)) {
 
 // ================= VALIDASI =================
 $errors = [];
-if ($customer_name === '')    $errors[] = 'Nama harus diisi';
-if ($customer_phone === '')   $errors[] = 'Nomor HP harus diisi';
-if ($customer_address === '') $errors[] = 'Alamat harus diisi';
+if ($customer_name === '')
+    $errors[] = 'Nama harus diisi';
+if ($customer_phone === '')
+    $errors[] = 'Nomor HP harus diisi';
+if ($customer_address === '')
+    $errors[] = 'Alamat harus diisi';
 
 if (!empty($errors)) {
     $_SESSION['error_message'] = implode('<br>', $errors);
@@ -50,7 +53,7 @@ foreach ($_SESSION['cart'] as $item) {
     $subtotal += $item['price'] * $item['quantity'];
 }
 
-$delivery_fee = 5000;
+$delivery_fee = $_SESSION['delivery_fee'];
 $total = $subtotal + $delivery_fee;
 
 // ================= TRANSACTION =================
