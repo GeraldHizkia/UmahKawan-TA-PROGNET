@@ -15,8 +15,8 @@ function handleWhatsAppOrder(event) {
   // Format the message
   const message =
     `*New Order from ${firstName} ${lastName}*\n\n` +
-    `📍 Alamat: ${address}\n\n` +
-    `🛒 Pesanan:\n${orderMessage}`;
+    `Alamat: ${address}\n\n` +
+    `Pesanan:\n${orderMessage}`;
 
   // WhatsApp phone number (Indonesia format)
   const phone = "62895338181468"; // Your WhatsApp number without '+' or leading 0
